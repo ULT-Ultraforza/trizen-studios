@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="trizen-studios-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="brand-header">
+        <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Logo" class="logo">
+        <span class="company-name">Trizen Studios</span>
+    </header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="trizen-studios.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="watch.html">Watch</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="top-bar"></div>
+    <div class="search-bar default">
+        <div class="input-group">
+            <input id="q" placeholder="Search">
+            <button onclick="search()">Go</button>
+        </div>
+        <div id="r"></div>
+    </div>
+    <div class="hero">
+        <img src="Meet-the-characters-Afterlife.jpg" alt="Afterlife Characters" class="hero-image">
+        <div class="hero-text">
+            <h1>Contact Us</h1>
+            <p>Are you in need of Services and/or want to offer feedback?</p>
+        </div>
+    </div>
+    <main>
+        <section>
+            <br>
+            <h2 id="some_id">Contact Information</h2>
+            <p>Follow Me on 𝕏, and I will message you when I am available<br><br>
+                Alternatively, you can email me at trizen.studios@outlook.com (please add a subject line if possible so it doesn't get sent into the spam folder)</p><br><hr>
+<div class="hero-image-contact-us">
+    <img src="Jason-vs-Malachi-Final.jpg" alt="Body Image Title" class="contact-hero-img">
+    <div class="hero-text">
+        <h1>To The Stars! ✨🌌</h1><br>
+        <p>Follow us for updates, sketches, and exclusive content!</p>
+    </div>
+</div>
+
+<h3>Follow Us:</h3>
+<div class="social-icons">
+    <!-- X icon as SVG -->
+    <a href="https://x.com/TrizenStudios" target="_blank" style="text-decoration: none;">
+        <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-logo-icon.svg" alt="X" style="height: 84px;">
+    </a>
+    <!-- YouTube Icon -->
+    <a href="https://www.youtube.com/@TrizenStudios" target="_blank" style="text-decoration: none;">
+        <i class="fab fa-youtube" style="font-size: 84px; color: #FF0000;"></i>
+    </a>
+    <!-- Instagram Icon -->
+    <a href="https://www.instagram.com/trizen_studios/" target="_blank" style="text-decoration: none;">
+        <i class="fab fa-instagram" style="font-size: 84px; color: #C13584;"></i>
+    </a>
+</div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Trizen Studios. All rights reserved.</p>
+    </footer>
+    <script src="trizen-studios.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#galleryForm").submit(function(e) {
+                e.preventDefault();
+                let response = $("#interactiveBox").val();
+                alert("Thanks for sharing: " + response);
+                $("#interactiveBox").val("");
+            });
+        });
+    </script>
+</body>
+</html>

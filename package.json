@@ -1,0 +1,16 @@
+{
+    "name": "mult-213",
+    "version": "1.0.0",
+    "description": "my file for mult-213",
+    "license": "ISC",
+    "author": "Thomas Calabria",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@elastic/elasticsearch": "^9.2.0",
+        "express": "^5.1.0"
+    }
+}

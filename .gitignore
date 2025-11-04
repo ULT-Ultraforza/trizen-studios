@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Netlify
+.netlify/

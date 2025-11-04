@@ -1,0 +1,537 @@
+/* --------------------------------------------------------------
+   trizen-studios-styles.css – FINAL: Desktop Image Full, Mobile Centered
+   -------------------------------------------------------------- */
+
+body
+{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: large;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    background-image: url('Trizen-Studios-Background-Screen.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    cursor: url('Jason-Themed-Cursor-Resized.png') 0 0, auto;
+    overflow-x: hidden;
+}
+
+/* Top Bar */
+.top-bar
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+    backdrop-filter: blur(10px);
+    z-index: 900;
+}
+
+/* Brand Header – Clickable to Home */
+.brand-header
+{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    z-index: 1200;
+    transition: top 0.3s ease;
+    cursor: pointer;
+}
+.brand-header.shrunk { top: 15px; }
+.logo
+{
+    width: 80px;
+    height: auto;
+    margin-right: 10px;
+    transition: width 0.3s ease;
+}
+.company-name
+{
+    font-size: 1.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: font-size 0.3s ease;
+}
+
+/* Navbar – Desktop: Right of logo on shrink */
+.navbar
+{
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.navbar.shrunk
+{
+    top: 15px;
+    left: 30%;
+    transform: none;
+    max-width: 500px;
+    padding: 8px 15px;
+}
+.navbar ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.navbar li { margin: 0; }
+.navbar a
+{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: url('Jason-Themed-Cursor-Resized.png') 0 0, auto;
+}
+.navbar a:hover { color: cyan; }
+
+/* --------------------------------------------------------------
+   SEARCH BAR – Mobile: Bottom + Dropdown Above
+   -------------------------------------------------------------- */
+.search-bar
+{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1100;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+.search-bar.default { top: 160px; }
+.search-bar.shrunk
+{
+    top: 30px;
+    right: 20px;
+    left: auto;
+    transform: none;
+    max-width: 300px;
+}
+.input-group
+{
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+input#q
+{
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 9999px;
+    font-size: 1.1rem;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    outline: none;
+}
+button
+{
+    margin-left: -55px;
+    border-radius: 50%;
+    padding: 0.7rem;
+    border: none;
+    background: black;
+    color: white;
+    cursor: url('Jason-Themed-Cursor-Resized.png') 0 0, auto;
+    z-index: 2;
+}
+#r
+{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 10000;
+    color: #fff;
+    backdrop-filter: blur(20px);
+    margin-top: 8px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.search-bar.shrunk #r { left: 0; transform: translateX(0); width: 100%; }
+#r:empty { display: none; }
+.suggestion, .result-item
+{
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.suggestion:hover, .result-item:hover { background: rgba(0,255,255,0.1); }
+.preview { font-size: 0.9rem; color: #ddd; }
+.suggestion strong { color: cyan; }
+
+/* Hero */
+.hero
+{
+    position: relative;
+    width: 90%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    height: 70vh;
+    min-height: 400px;
+    overflow: hidden;
+    border-radius: 50px;
+    margin-top: 200px;
+}
+.hero-image,
+.hero-image-services
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+    border-radius: 50px;
+}
+.hero .hero-text
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    width: 90%;
+    max-width: 800px;
+    padding: 1rem;
+}
+.hero .hero-text h1 { font-size: 3.5rem; margin: 0 0 0.5rem; }
+.hero .hero-text p { font-size: 1.5rem; margin: 0; }
+
+/* Contact Hero */
+.hero-image-contact-us
+{
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 3rem auto;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.contact-hero-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(50%); }
+.hero-image-contact-us .hero-text
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 85%;
+    padding: 1.2rem;
+    background: rgba(0,0,0,0.5);
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+}
+.hero-image-contact-us .hero-text h1 { font-size: 2.6rem; margin: 0 0 0.4rem; line-height: 1.2; }
+.hero-image-contact-us .hero-text p { font-size: 1.3rem; margin: 0; line-height: 1.4; }
+
+/* --------------------------------------------------------------
+   ABOUT SECTION – Text Left, Image Right (Responsive)
+   -------------------------------------------------------------- */
+.about-section
+{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+.about-text
+{
+    flex: 1;
+    min-width: 300px;
+}
+.about-text h2
+{
+    margin-top: 0;
+    font-size: 2rem;
+    color: #00ffff;
+}
+.about-text p
+{
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+.about-image
+{
+    flex: 1;
+    text-align: center;
+}
+.about-image img
+{
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    filter: brightness(90%);
+}
+
+/* Mobile: Stack + Centered */
+@media (max-width: 768px)
+{
+    .about-section
+    {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .about-text, .about-image { min-width: 100%; }
+    .about-image img { max-width: 85%; margin: 0 auto; display: block; }
+    
+    /* Center standalone images in main content */
+    section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 20px;
+        display: block;
+        margin: 1.5rem auto;
+    }
+}
+
+/* Social Icons */
+.social-icons
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+.social-icons a { 
+    transition: transform 0.3s ease; 
+    display: inline-block;
+}
+.social-icons a:hover { transform: scale(1.15); }
+.social-icons img, .social-icons i { 
+    height: 70px; 
+    width: auto; 
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); 
+}
+.social-icons .fa-youtube { font-size: 70px; }
+.social-icons .fa-instagram { font-size: 70px; }
+
+/* Layout */
+main
+{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+}
+footer
+{
+    text-align: center;
+    padding: 1.5rem;
+    background-color: rgba(0,0,0,0.4);
+    margin-top: 3rem;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------
+   MOBILE: Clean Layout on All Pages
+   -------------------------------------------------------------- */
+@media (max-width: 768px)
+{
+    .brand-header { top: 8px; left: 15px; z-index: 1200; }
+    .brand-header.shrunk { top: 8px; }
+    .logo { width: 60px; }
+    .company-name { font-size: 1.4rem; }
+
+    .navbar { top: 70px; left: 50%; transform: translateX(-50%); }
+    .navbar.shrunk { top: 70px; left: 50%; transform: translateX(-50%); max-width: 400px; padding: 8px 15px; }
+    .navbar ul { gap: 15px; }
+
+    .search-bar, .search-bar.shrunk
+    {
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 90%;
+    }
+    input#q { font-size: 1rem; padding: 0.7rem 1.2rem; }
+    button { margin-left: -50px; padding: 0.6rem; }
+
+    #r { top: auto; bottom: 100%; margin-bottom: 8px; margin-top: 0; }
+
+    .hero { margin-top: 140px; height: 50vh; min-height: 300px; }
+    .hero .hero-text h1 { font-size: 2.2rem; }
+    .hero .hero-text p { font-size: 1.1rem; }
+
+    .hero-image-contact-us { 
+        aspect-ratio: 4 / 3; 
+        margin: 2rem auto; 
+        width: 95%;
+    }
+    .hero-image-contact-us .hero-text h1 { font-size: 1.8rem; }
+    .hero-image-contact-us .hero-text p { font-size: 1rem; }
+    section h3 { text-align: center; margin-top: 2rem; }
+
+    .social-icons { 
+        gap: 20px; 
+        justify-content: center;
+    }
+    .social-icons img, .social-icons i { height: 55px; }
+    .social-icons .fa-youtube, .social-icons .fa-instagram { font-size: 55px; }
+    
+    main { padding: 1.5rem; }
+    
+    /* Remove inline margin-left on social icons in mobile */
+    section p a, 
+    section div a,
+    .hero-image-contact-us a {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+@media (max-width: 480px)
+{
+    .brand-header .logo { width: 50px; }
+    .brand-header .company-name { font-size: 1.2rem; }
+    
+    .navbar ul { gap: 8px; padding: 0 5px; }
+    .navbar a { font-size: 0.9rem; }
+    .navbar { padding: 8px 10px; }
+    
+    .search-bar, .search-bar.shrunk { 
+        max-width: 85%; 
+        bottom: 15px;
+    }
+    input#q { font-size: 0.9rem; padding: 0.6rem 1rem; }
+    
+    .hero { margin-top: 120px; height: 45vh; min-height: 250px; }
+    .hero .hero-text h1 { font-size: 1.8rem; }
+    .hero .hero-text p { font-size: 1rem; }
+    
+    .social-icons { 
+        gap: 15px;
+        margin: 1.5rem 0;
+    }
+    .social-icons img, .social-icons i { height: 45px; }
+    .social-icons .fa-youtube, .social-icons .fa-instagram { font-size: 45px; }
+    
+    main { padding: 1rem; }
+}
+
+        /* ---- Mini-YouTube specific styles (added to the page) ---- */
+        .yt-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 170px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .yt-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .yt-brand img { width: 45px; }
+        .yt-brand span { font-size: 1.5rem; font-weight: 600; color:#fff; }
+        .yt-search .input-group {
+            display: flex;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50px;
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+        }
+        .yt-search input {
+            flex:1; padding:12px 20px; background:transparent;
+            border:none; color:#fff; font-size:1rem;
+        }
+        .yt-search input::placeholder { color:rgba(255,255,255,0.7); }
+        .yt-search button {
+            padding: auto; background:rgba(255,255,255,0.2);
+            border:none; color:#fff; cursor:pointer;
+            transition:background .3s;
+        }
+        .yt-search button:hover { background:cyan; color:#000; }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+            gap: 24px;
+            padding: 0 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .video-card video { width:100%; aspect-ratio:16/9; background:#000; }
+        .video-info { padding:12px; }
+        .video-info h3 { margin:0 0 6px; font-size:1.15rem; }
+        .video-stats { font-size:0.9rem; margin-bottom:8px; }
+        .video-stats span { margin-right:12px; }
+        .video-desc { font-size:0.9rem; line-height:1.4; margin-bottom:12px; }
+        .like-btn {
+            background:cyan; color:#000; border:none;
+            padding: 6px 12px; border-radius:4px; cursor:pointer;
+            margin-bottom:12px;
+            margin-left: auto;
+        }
+        .comments { border-top:1px solid rgba(255,255,255,0.3); padding-top:12px;}
+        .comments p { margin:6px 0; font-size:0.85rem; }
+        .comments small { color:rgba(255,255,255,0.7); }
+        .comment-form { display:flex; margin-top:12px; margin-bottom: 12px;}
+        .comment-form input {
+            flex:1; padding:8px; background:rgba(255,255,255,0.1);
+            border:1px solid rgba(255,255,255,0.3); color:#fff;
+            border-radius:4px 0 0 4px;
+        }
+        .comment-form button {
+            background:cyan; color:#000; border:none;
+            padding:0 12px; border-radius:0 4px 4px 0; cursor:pointer;
+        }
+        @media (max-width:768px){
+            .yt-header{ flex-direction:column; gap:12px; }
+            .video-grid{ grid-template-columns:1fr; }
+        }
