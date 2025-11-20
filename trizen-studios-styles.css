@@ -2,6 +2,11 @@
    trizen-studios-styles.css – FINAL: Desktop Image Full, Mobile Centered
    -------------------------------------------------------------- */
 
+html {
+    min-height: 100%;
+    height: 100%;
+}
+
 body
 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -17,6 +22,8 @@ body
     color: #fff;
     cursor: url('Jason-Themed-Cursor-Resized.png') 0 0, auto;
     overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
 }
 
 /* Top Bar */
@@ -43,6 +50,7 @@ body
     z-index: 1200;
     transition: top 0.3s ease;
     cursor: pointer;
+    will-change: top;
 }
 .brand-header.shrunk { top: 15px; }
 .logo
@@ -74,15 +82,19 @@ body
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 50px;
     padding: 12px 20px;
-    transition: all 0.3s ease;
+    transition: top 0.3s ease, left 0.3s ease, max-width 0.3s ease, padding 0.3s ease, transform 0.3s ease;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    will-change: transform, top, left;
+    transform-origin: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 .navbar.shrunk
 {
     top: 15px;
     left: 30%;
-    transform: none;
+    transform: translateX(0);
     max-width: 500px;
     padding: 8px 15px;
 }
@@ -117,10 +129,11 @@ body
     left: 50%;
     transform: translateX(-50%);
     z-index: 1100;
-    transition: all 0.3s ease;
+    transition: top 0.3s ease, left 0.3s ease, right 0.3s ease, max-width 0.3s ease, transform 0.3s ease;
     width: 100%;
     max-width: 600px;
     text-align: center;
+    will-change: transform, top, left, right;
 }
 .search-bar.default { top: 160px; }
 .search-bar.shrunk

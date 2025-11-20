@@ -193,38 +193,60 @@ document.querySelector('.search-bar')?.addEventListener('click', e => {
 /* --------------------------------------------------------------
    7. Scroll: Shrink navbar + move beside logo (desktop)
    -------------------------------------------------------------- */
-window.addEventListener('scroll', () => {
+let scrollTimeout;
+let lastScrollY = window.scrollY;
+let isShrunk = false;
+
+function handleScroll() {
   const navbar = document.querySelector('.navbar');
   const brandHeader = document.querySelector('.brand-header');
   const searchBar = document.querySelector('.search-bar');
   const isMobile = window.innerWidth <= 768;
-
-  if (window.scrollY > 100) {
-    navbar.classList.add('shrunk');
-    brandHeader.classList.add('shrunk');
-    searchBar.classList.add('shrunk');
-  } else {
-    navbar.classList.remove('shrunk');
-    brandHeader.classList.remove('shrunk');
-    searchBar.classList.remove('shrunk');
+  const currentScrollY = window.scrollY;
+  
+  // Only update if scroll position changed significantly or state needs to change
+  const shouldBeShrunk = currentScrollY > 100;
+  
+  if (shouldBeShrunk !== isShrunk) {
+    isShrunk = shouldBeShrunk;
+    
+    if (isShrunk) {
+      navbar?.classList.add('shrunk');
+      brandHeader?.classList.add('shrunk');
+      searchBar?.classList.add('shrunk');
+    } else {
+      navbar?.classList.remove('shrunk');
+      brandHeader?.classList.remove('shrunk');
+      searchBar?.classList.remove('shrunk');
+    }
   }
 
   if (isMobile) {
     searchBar.style.top = 'auto';
     searchBar.style.bottom = '20px';
   }
+  
+  lastScrollY = currentScrollY;
+}
+
+// Throttled scroll handler with passive listener for better performance
+window.addEventListener('scroll', () => {
+  if (!scrollTimeout) {
+    scrollTimeout = requestAnimationFrame(() => {
+      handleScroll();
+      scrollTimeout = null;
+    });
+  }
+}, { passive: true });
+
+// Initialize scroll state on load
+window.addEventListener('load', () => {
+  handleScroll();
 });
 
 /* --------------------------------------------------------------
-   8. Load state
+   8. Load state - handled by handleScroll() above
    -------------------------------------------------------------- */
-window.addEventListener('load', () => {
-  if (window.scrollY > 100) {
-    document.querySelector('.navbar')?.classList.add('shrunk');
-    document.querySelector('.brand-header')?.classList.add('shrunk');
-    document.querySelector('.search-bar')?.classList.add('shrunk');
-  }
-});
 
 /* New functions for mini-YouTube on watch.html */
 async function loadVideos(query = '') {
