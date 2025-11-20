@@ -1,20 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch</title>
+    <title>Watch - Trizen Studios</title>
     <link rel="stylesheet" href="trizen-studios-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+    <style>
+        /* --- DESKTOP STYLES --- */
+        .yt-header { 
+            padding: 20px 0; 
+            /* FIXED: Increased to 220px to clear the fixed Navbar on Desktop */
+            margin-top: 250px; 
+            text-align: center; 
+            background: rgba(0,0,0,0.4); 
+            margin-bottom: 20px; 
+            border-radius: 20px;
+        }
+        .yt-brand img { 
+            height: 80px; 
+            width: auto; 
+            vertical-align: middle; 
+        }
+        .yt-brand span { 
+            font-size: 2rem; 
+            margin-left: 12px; 
+            vertical-align: middle; 
+            color: #fff;
+            font-weight: bold;
+        }
 
+        /* --- MOBILE STYLES --- */
+        @media (max-width: 768px) {
+            .yt-header {
+                /* Mobile needs less space because elements are smaller */
+                margin-top: 140px; 
+                padding: 15px;
+            }
+            .yt-brand img {
+                height: 60px; 
+            }
+            .yt-brand span {
+                display: block; 
+                margin-left: 0;
+                margin-top: 10px;
+                font-size: 1.5rem;
+            }
+            .video-grid {
+                padding: 10px;
+            }
+        }
+
+        .video-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 24px; 
+            padding: 20px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        .video-card { 
+            background: rgba(255,255,255,0.1); 
+            border-radius: 16px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+        }
+        .video-card:hover { transform: scale(1.03); }
+        .video-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .video-info { padding: 12px; }
+        .video-info h3 { margin: 0 0 8px; font-size: 1.1rem; }
+        .video-meta { font-size: 0.85rem; color: #aaa; }
+    </style>
+</head>
 <body>
-    <!-- ==== TOP BAR (unchanged) ==== -->
+
     <header class="brand-header">
         <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Logo" class="logo">
         <span class="company-name">Trizen Studios</span>
     </header>
+
     <nav class="navbar">
         <ul>
             <li><a href="trizen-studios.html">Home</a></li>
@@ -23,138 +88,78 @@
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
+
     <div class="top-bar"></div>
 
-    <!-- ==== GLOBAL SEARCH (unchanged) ==== -->
     <div class="search-bar default">
         <div class="input-group">
-            <input id="q" placeholder="Search">
+            <input id="q" placeholder="Search site...">
             <button onclick="search()">Go</button>
         </div>
         <div id="r"></div>
     </div>
 
-    <!-- ==== HERO (kept but hidden on Watch page) ==== -->
-    <div class="hero" style="display:none;">
-        <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen-Studios-Logo-Vector" class="hero-image-services">
-        <div class="hero-text">
-            <h1>What we Offer</h1>
-            <p>At Trizen Studios, we offer a wide variety of services, ranging from advertisement design to scalable animation projects</p>
+    <div class="yt-header">
+        <div class="yt-brand" onclick="location.href='watch.html'">
+            <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios">
+            <span>Trizen Studios</span>
+        </div>
+        <div>
+            <p>Watch our Latest Videos</p>
         </div>
     </div>
 
-    <main>
-        <section>
-            <br>
-
-            <!-- ==== YOUTUBE-STYLE TOP SEARCH BAR ==== -->
-            <div class="yt-header">
-                <div class="yt-brand" onclick="location.href='trizen-studios.html'">
-                    <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios">
-                    <span>Trizen Studios</span>
-                </div>
-                <div class="yt-search">
-                    <div class="input-group">
-                        <input id="video-q" placeholder="Search videos" onkeypress="if(event.key==='Enter')searchVideos()">
-                        <button onclick="searchVideos()">Go</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ==== VIDEO GRID ==== -->
-            <div id="video-grid" class="video-grid"></div>
-
-            <!-- ==== TO THE STARS (unchanged) ==== -->
-            <p>To The Stars! ✨🌌<br>
-            Follow us for updates, sketches, and exclusive content!</p>
-
-            <div class="social-icons">
-                <a href="https://x.com/TrizenStudios" target="_blank" style="text-decoration:none;">
-                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-logo-icon.svg" alt="X" style="height:84px;">
-                </a>
-                <a href="https://www.youtube.com/@TrizenStudios" target="_blank" style="text-decoration:none;">
-                    <i class="fab fa-youtube" style="font-size:84px; color:#FF0000;"></i>
-                </a>
-                <a href="https://www.instagram.com/trizen_studios/" target="_blank" style="text-decoration:none;">
-                    <i class="fab fa-instagram" style="font-size:84px; color:#C13584;"></i>
-                </a>
-            </div>
-        </section>
-    </main>
+    <div class="video-grid" id="videos"></div>
 
     <footer>
-        <p>&copy; 2025 Trizen Studios. All rights reserved.</p>
+        <p>© 2025 Trizen Studios. All rights reserved.</p>
     </footer>
 
     <script src="trizen-studios.js"></script>
 
-    <!-- ==== MINI-YOUTUBE LOGIC ==== -->
     <script>
-        const videos = [
-            {id:"v1",title:"Jason vs Evil Jason",file:"Jason v Evil Jason Interestingly Good.mp4",
-             desc:"An epic battle between Jason and his evil counterpart. Action-packed animation from Trizen Studios.",
-             views:0,likes:0,comments:[]},
-            {id:"v2",title:"Jason vs Malachi",file:"grok-video-Jason-vs-Malachi-Pretty cool.mp4",
-             desc:"Jason faces off against Malachi in this thrilling showdown. Part of the Afterlife series.",
-             views:0,likes:0,comments:[]}
-        ];
+        const API_KEY = 'AIzaSyDNxZGB5JB_Btuj1nEhsdCN0Fvrw4ikGrU';
+        const UPLOADS_PLAYLIST = 'UUI_3Xab-gpJkN22hR8rOWEQ';   
 
-        function renderVideos(list){
-            const grid=document.getElementById('video-grid');
-            grid.innerHTML='';
-            list.forEach(v=>{
-                const card=document.createElement('div');
-                card.className='video-card';
-                card.innerHTML=`
-                    <video controls>
-                        <source src="${v.file}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-info">
-                        <h3>${v.title}</h3>
-                        <div class="video-stats">
-                            <span class="views">${v.views} views</span>
-                            <span class="likes">${v.likes} likes</span>
+        async function loadVideos() {
+            try {
+                const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${UPLOADS_PLAYLIST}&key=${API_KEY}`);
+                const data = await res.json();
+
+                if (data.error) {
+                    document.getElementById('videos').innerHTML = `<p style="text-align:center;color:#ff6666;">API Error: ${data.error.message}</p>`;
+                    return;
+                }
+
+                const grid = document.getElementById('videos');
+                grid.innerHTML = '';
+
+                data.items.forEach(item => {
+                    const v = item.snippet;
+                    const videoId = v.resourceId.videoId;
+
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    card.onclick = () => location.href = `watch-video.html?id=${videoId}`;
+
+                    card.innerHTML = `
+                        <img src="${v.thumbnails.high?.url || v.thumbnails.medium.url}" alt="${v.title}" loading="lazy">
+                        <div class="video-info">
+                            <h3>${v.title}</h3>
+                            <div class="video-meta">
+                                ${new Date(v.publishedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                            </div>
                         </div>
-                        <button class="like-btn" onclick="like('${v.id}',this)">Like</button>
-                        <p class="video-desc">${v.desc}</p>
-                        <div class="comments">
-                            ${v.comments.map(c=>`<p>${c.text} <small>${new Date(c.date).toLocaleString()}</small></p>`).join('')}
-                        </div>
-                        <form class="comment-form" onsubmit="addComment(event,'${v.id}',this)">
-                            <input type="text" placeholder="Add a comment..." required>
-                            <button type="submit">Post</button>
-                        </form>
-                    </div>`;
-                const vid=card.querySelector('video');
-                vid.onplay=()=>{ if(!vid.dataset.viewed){ v.views++; vid.dataset.viewed=1;
-                    card.querySelector('.views').textContent=v.views+' views'; }};
-                grid.appendChild(card);
-            });
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                document.getElementById('videos').innerHTML = '<p style="text-align:center;color:#ff6666;">Failed to load videos. Check console for details.</p>';
+                console.error(err);
+            }
         }
 
-        function like(id,btn){
-            const v=videos.find(x=>x.id===id);
-            v.likes++;
-            btn.parentNode.querySelector('.likes').textContent=v.likes+' likes';
-        }
-        function addComment(e,id,form){
-            e.preventDefault();
-            const txt=form.querySelector('input').value.trim();
-            if(!txt) return;
-            const v=videos.find(x=>x.id===id);
-            v.comments.push({text:txt,date:new Date()});
-            form.reset();
-            renderVideos(videos);
-        }
-        function searchVideos(){
-            const q=document.getElementById('video-q').value.toLowerCase();
-            const filtered = q ? videos.filter(v=>v.title.toLowerCase().includes(q)||v.desc.toLowerCase().includes(q)) : videos;
-            renderVideos(filtered);
-        }
-
-        // initial load
-        renderVideos(videos);
+        loadVideos();
     </script>
 </body>
 </html>
