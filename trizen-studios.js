@@ -167,13 +167,6 @@ window.addEventListener('load', () => {
       location.href = 'trizen-studios.html';
     });
   }
-
-  // Initial mobile layout
-  const searchBar = document.querySelector('.search-bar');
-  if (window.innerWidth <= 768) {
-    searchBar.style.top = 'auto';
-    searchBar.style.bottom = '20px';
-  }
 });
 
 /* --------------------------------------------------------------
@@ -213,20 +206,54 @@ function handleScroll() {
     if (isShrunk) {
       navbar?.classList.add('shrunk');
       brandHeader?.classList.add('shrunk');
-      searchBar?.classList.add('shrunk');
+      if (!isMobile) {
+        searchBar?.classList.add('shrunk');
+      }
     } else {
       navbar?.classList.remove('shrunk');
       brandHeader?.classList.remove('shrunk');
-      searchBar?.classList.remove('shrunk');
+      if (!isMobile) {
+        searchBar?.classList.remove('shrunk');
+      }
     }
   }
 
-  if (isMobile) {
-    searchBar.style.top = 'auto';
-    searchBar.style.bottom = '20px';
-  }
+  // Update search bar position (handles mobile positioning)
+  updateSearchBarPosition();
   
   lastScrollY = currentScrollY;
+}
+
+// Function to update search bar position based on viewport
+function updateSearchBarPosition() {
+  const searchBar = document.querySelector('.search-bar');
+  if (!searchBar) return;
+  
+  const isMobile = window.innerWidth <= 768;
+  
+  if (isMobile) {
+    // Mobile: always at bottom, remove inline styles that might conflict
+    searchBar.style.top = 'auto';
+    searchBar.style.bottom = '20px';
+    searchBar.style.left = '50%';
+    searchBar.style.transform = 'translateX(-50%)';
+    searchBar.style.right = 'auto';
+    // Remove shrunk class on mobile
+    searchBar.classList.remove('shrunk');
+  } else {
+    // Desktop: reset inline styles, let CSS handle positioning
+    searchBar.style.top = '';
+    searchBar.style.bottom = '';
+    searchBar.style.left = '';
+    searchBar.style.transform = '';
+    searchBar.style.right = '';
+    // Apply shrunk class if scrolled
+    if (window.scrollY > 100) {
+      searchBar.classList.add('shrunk');
+    } else {
+      searchBar.classList.remove('shrunk');
+    }
+  }
 }
 
 // Throttled scroll handler with passive listener for better performance
@@ -239,9 +266,22 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// Initialize scroll state on load
+// Handle window resize to update search bar position
+let resizeTimeout;
+window.addEventListener('resize', () => {
+  if (!resizeTimeout) {
+    resizeTimeout = requestAnimationFrame(() => {
+      updateSearchBarPosition();
+      handleScroll(); // Also update scroll state
+      resizeTimeout = null;
+    });
+  }
+}, { passive: true });
+
+// Initialize scroll state and search bar position on load
 window.addEventListener('load', () => {
   handleScroll();
+  updateSearchBarPosition();
 });
 
 /* --------------------------------------------------------------

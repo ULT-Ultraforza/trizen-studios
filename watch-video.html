@@ -34,83 +34,221 @@
         .bottom-video img { width: 100%; height: 157px; object-fit: cover; border-radius: 12px; }
         .bottom-video h4 { margin: 10px 0 4px; font-size: 0.95rem; }
         
-        /* Mobile Layout - YouTube-style: Main video first, then related videos */
+        /* Mobile Layout - YouTube-style: Main video first, then Recent Videos, then More from Trizen Studios */
         @media (max-width: 1024px) { 
-            body { padding-top: 140px; }
+            body { 
+                padding-top: 140px; 
+                overflow-x: hidden;
+            }
             .watch-container { 
-                grid-template-columns: 1fr; 
+                display: flex;
+                flex-direction: column;
                 gap: 0;
-                padding: 10px;
+                padding: 0;
+                max-width: 100%;
+                margin: 0;
             }
-            .related-sidebar { 
-                order: 2;
-                margin-top: 40px;
-            }
+            /* Main content container */
             .watch-container > div:first-child {
                 order: 1;
+                width: 100%;
+                padding: 0;
+                max-width: 100%;
             }
+            /* Recent Videos sidebar */
+            .related-sidebar { 
+                order: 2;
+                margin-top: 30px;
+                padding: 0 15px;
+                width: 100%;
+                max-width: 100%;
+            }
+            /* More from Trizen Studios */
+            .bottom-related {
+                order: 3;
+                margin-top: 30px;
+                padding: 0 15px;
+                width: 100%;
+                max-width: 100%;
+            }
+            /* Video player - full width, no overflow */
             .player-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
                 border-radius: 0;
-                margin: 0 -10px;
-                width: calc(100% + 20px);
+                overflow: hidden;
             }
+            .player-wrapper iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            /* Video title */
             .video-title { 
-                font-size: 1.4rem; 
+                font-size: 1.2rem; 
                 margin: 16px 0 12px;
-                padding: 0 10px;
+                padding: 0 15px;
+                line-height: 1.4;
+                word-wrap: break-word;
             }
+            /* Video stats */
             .video-stats { 
                 flex-wrap: wrap;
                 gap: 12px;
                 margin-bottom: 16px;
-                padding: 0 10px;
-                font-size: 0.9rem;
+                padding: 0 15px;
+                font-size: 0.85rem;
             }
             .like-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
+                padding: 8px 16px;
+                font-size: 0.85rem;
+                width: auto;
             }
+            /* Description */
             .description {
                 margin: 20px 0;
                 padding: 16px;
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
             }
+            /* Recent Videos section */
             .related-sidebar h3 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 margin-bottom: 16px;
-                padding: 0 10px;
+                padding: 0;
             }
             .related-video {
                 padding: 10px;
                 margin-bottom: 12px;
+                width: 100%;
+                box-sizing: border-box;
             }
             .related-video img {
                 width: 140px;
                 height: 78px;
+                flex-shrink: 0;
+            }
+            .related-info {
+                flex: 1;
+                min-width: 0;
             }
             .related-info h4 {
                 font-size: 0.9rem;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                line-height: 1.3;
             }
             .related-info p {
                 font-size: 0.8rem;
             }
+            /* More from Trizen Studios section */
             .bottom-related {
-                margin-top: 40px;
-                padding: 0 10px;
+                margin-top: 30px;
             }
             .bottom-related h2 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 margin-bottom: 16px;
             }
             .bottom-grid {
-                grid-auto-columns: 240px;
+                grid-auto-columns: minmax(160px, 1fr);
                 gap: 12px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 10px;
+            }
+            .bottom-grid::-webkit-scrollbar {
+                height: 4px;
+            }
+            .bottom-video {
+                min-width: 0;
             }
             .bottom-video img {
-                height: 135px;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16/9;
+                object-fit: cover;
             }
             .bottom-video h4 {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                margin-top: 8px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                line-height: 1.3;
+            }
+        }
+        
+        /* Tablet specific styles (iPad, etc.) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            body { 
+                padding-top: 160px; 
+            }
+            .watch-container {
+                padding: 0 20px;
+            }
+            .player-wrapper {
+                border-radius: 12px;
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            .video-title {
+                font-size: 1.4rem;
+                padding: 0 20px;
+            }
+            .video-stats {
+                padding: 0 20px;
+            }
+            .description {
+                padding: 20px;
+            }
+            .related-sidebar,
+            .bottom-related {
+                padding: 0 20px;
+            }
+            .related-video img {
+                width: 180px;
+                height: 101px;
+            }
+            .bottom-grid {
+                grid-auto-columns: minmax(200px, 1fr);
+            }
+        }
+        
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            body { 
+                padding-top: 120px; 
+            }
+            .video-title {
+                font-size: 1.1rem;
+                padding: 0 12px;
+            }
+            .video-stats {
+                padding: 0 12px;
+                font-size: 0.8rem;
+            }
+            .description {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+            .related-sidebar,
+            .bottom-related {
+                padding: 0 12px;
+            }
+            .related-video img {
+                width: 120px;
+                height: 67px;
+            }
+            .related-info h4 {
+                font-size: 0.85rem;
+            }
+            .bottom-grid {
+                grid-auto-columns: minmax(140px, 1fr);
             }
         }
     </style>
@@ -157,16 +295,16 @@
             </div>
 
             <div class="description" id="description">Loading...</div>
-
-            <div class="bottom-related">
-                <h2>More from Trizen Studios</h2>
-                <div class="bottom-grid" id="bottomVideos"></div>
-            </div>
         </div>
 
         <div class="related-sidebar">
             <h3>Recent Videos</h3>
             <div id="related"></div>
+        </div>
+
+        <div class="bottom-related">
+            <h2>More from Trizen Studios</h2>
+            <div class="bottom-grid" id="bottomVideos"></div>
         </div>
     </div>
 
@@ -187,62 +325,133 @@
         const urlParams = new URLSearchParams(window.location.search);
         let videoId = urlParams.get('id');
         let player;
+        let playerReady = false;
 
+        function initPlayer() {
+            if (!videoId) {
+                console.error('No video ID provided');
+                return;
+            }
+            if (typeof YT === 'undefined' || !YT.Player) {
+                console.error('YouTube API not loaded');
+                return;
+            }
+            try {
+                player = new YT.Player('player', {
+                    videoId: videoId,
+                    playerVars: { autoplay: 0, rel: 0, modestbranding: 1 },
+                    events: {
+                        'onReady': function(event) {
+                            playerReady = true;
+                            console.log('Player ready');
+                        },
+                        'onError': function(event) {
+                            console.error('Player error:', event.data);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error creating player:', error);
+            }
+        }
+
+        // This is called by YouTube's iframe API when it's ready
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                videoId: videoId,
-                playerVars: { autoplay: 0, rel: 0, modestbranding: 1 },
-            });
+            console.log('YouTube API ready');
+            initPlayer();
+            loadVideoData();
         }
 
         function loadNewVideo(newId) {
             videoId = newId;
-            player.loadVideoById(newId);
+            if (player && playerReady) {
+                player.loadVideoById(newId);
+            } else if (player) {
+                // Wait for player to be ready
+                setTimeout(() => {
+                    if (player) player.loadVideoById(newId);
+                }, 100);
+            }
             history.pushState({}, '', `watch-video.html?id=${newId}`);
             loadVideoData();
             window.scrollTo(0, 0);
         }
 
         async function loadVideoData() {
-            if (!videoId) return;
+            if (!videoId) {
+                console.error('No video ID to load');
+                return;
+            }
 
             try {
                 // 1. Fetch Main Video Details
                 const vRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`);
+                
+                if (!vRes.ok) {
+                    throw new Error(`API request failed: ${vRes.status} ${vRes.statusText}`);
+                }
+                
                 const vData = await vRes.json();
+                
+                if (vData.error) {
+                    throw new Error(`YouTube API Error: ${vData.error.message}`);
+                }
+                
                 const v = vData.items ? vData.items[0] : null;
                 
-                if (v) {
-                    const s = v.snippet;
-                    const st = v.statistics;
-
-                    document.getElementById('videoTitle').textContent = `${s.title} - Trizen Studios`;
-                    document.getElementById('title').textContent = s.title;
-                    document.getElementById('stats').innerHTML = `
-                        <i class="fas fa-eye"></i> ${parseInt(st.viewCount).toLocaleString()} views • 
-                        <i class="fas fa-thumbs-up"></i> ${parseInt(st.likeCount).toLocaleString()} likes
-                    `;
-
-                    const fullDesc = s.description || 'No description.';
-                    const shortDesc = fullDesc.length > 500 ? fullDesc.substring(0, 500) + '...' : fullDesc;
-                    document.getElementById('description').innerHTML = shortDesc + (fullDesc.length > 500 ? ` <span class="show-more" onclick="this.parentNode.innerHTML = \`${fullDesc.replace(/`/g, '\\`')}\`">Show more</span>` : '');
+                if (!v) {
+                    throw new Error('Video not found');
                 }
+                
+                const s = v.snippet;
+                const st = v.statistics;
+
+                document.getElementById('videoTitle').textContent = `${s.title} - Trizen Studios`;
+                document.getElementById('title').textContent = s.title;
+                document.getElementById('stats').innerHTML = `
+                    <i class="fas fa-eye"></i> ${parseInt(st.viewCount).toLocaleString()} views • 
+                    <i class="fas fa-thumbs-up"></i> ${parseInt(st.likeCount).toLocaleString()} likes
+                `;
+
+                const fullDesc = s.description || 'No description.';
+                const shortDesc = fullDesc.length > 500 ? fullDesc.substring(0, 500) + '...' : fullDesc;
+                document.getElementById('description').innerHTML = shortDesc + (fullDesc.length > 500 ? ` <span class="show-more" onclick="this.parentNode.innerHTML = \`${fullDesc.replace(/`/g, '\\`')}\`">Show more</span>` : '');
 
                 // 2. Fetch YOUR Uploads Playlist (Much cheaper on Quota than Search)
                 const pRes = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${UPLOADS_PLAYLIST_ID}&maxResults=50&key=${API_KEY}`);
+                
+                if (!pRes.ok) {
+                    throw new Error(`Playlist API request failed: ${pRes.status} ${pRes.statusText}`);
+                }
+                
                 const pData = await pRes.json();
+                
+                if (pData.error) {
+                    throw new Error(`YouTube API Error: ${pData.error.message}`);
+                }
 
-                if (!pData.items) return;
+                if (!pData.items || pData.items.length === 0) {
+                    console.warn('No playlist items found');
+                    return;
+                }
 
                 // Filter out the video currently playing so it doesn't appear in the list
-                // Note: In playlistItems, the ID is found at item.snippet.resourceId.videoId
                 const myVideos = pData.items.filter(item => item.snippet.resourceId.videoId !== videoId);
 
-                // 3. Populate Sidebar (First 10 of your videos)
+                // Determine device type and set limits
+                const isMobile = window.innerWidth <= 1024;
+                const recentCount = isMobile ? 3 : 5; // Mobile: 3, Desktop: 5
+                const moreVideosCount = isMobile ? 15 : 30; // Mobile: 15, Desktop: 30
+
+                // 3. Populate Recent Videos Sidebar
                 const sidebar = document.getElementById('related');
                 sidebar.innerHTML = '';
                 
-                myVideos.slice(0, 10).forEach(item => {
+                // Get recent videos and track their IDs
+                const recentVideos = myVideos.slice(0, recentCount);
+                const recentVideoIds = recentVideos.map(item => item.snippet.resourceId.videoId);
+                
+                recentVideos.forEach(item => {
                     const vidId = item.snippet.resourceId.videoId;
                     const el = document.createElement('div');
                     el.className = 'related-video';
@@ -257,17 +466,21 @@
                     sidebar.appendChild(el);
                 });
 
-                // 4. Populate Bottom Grid (Next 20 of your videos)
+                // 4. Populate "More from Trizen Studios" - exclude recent videos
                 const bottom = document.getElementById('bottomVideos');
                 bottom.innerHTML = '';
                 
-                myVideos.slice(10, 30).forEach(item => {
+                // Get videos that are NOT in recent videos
+                const moreVideos = myVideos
+                    .filter(item => !recentVideoIds.includes(item.snippet.resourceId.videoId))
+                    .slice(0, moreVideosCount);
+                
+                moreVideos.forEach(item => {
                     const vidId = item.snippet.resourceId.videoId;
                     const el = document.createElement('div');
                     el.className = 'bottom-video';
                     el.onclick = () => loadNewVideo(vidId);
                     
-                    // Safe thumbnail check
                     const thumbUrl = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.medium.url;
                     
                     el.innerHTML = `
@@ -279,10 +492,40 @@
 
             } catch (error) {
                 console.error("Error loading data:", error);
+                // Show error message to user
+                const titleEl = document.getElementById('title');
+                const statsEl = document.getElementById('stats');
+                const descEl = document.getElementById('description');
+                
+                if (titleEl) titleEl.textContent = 'Error loading video';
+                if (statsEl) statsEl.innerHTML = '<span style="color: #ff6666;">Failed to load video data. Please try again.</span>';
+                if (descEl) descEl.textContent = error.message || 'An unknown error occurred';
             }
         }
 
-        loadVideoData();
+        // Make sure onYouTubeIframeAPIReady is globally accessible
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+        
+        // If API is already loaded, initialize immediately
+        if (typeof YT !== 'undefined' && YT.Player) {
+            initPlayer();
+            loadVideoData();
+        }
+        // Otherwise, wait for the API to call onYouTubeIframeAPIReady
+        
+        // Reload video data on resize to update video counts for mobile/desktop
+        let videoResizeTimeout;
+        window.addEventListener('resize', () => {
+            if (!videoResizeTimeout) {
+                videoResizeTimeout = setTimeout(() => {
+                    // Only reload the video lists, not the main video
+                    if (videoId) {
+                        loadVideoData();
+                    }
+                    videoResizeTimeout = null;
+                }, 300); // Debounce resize
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>

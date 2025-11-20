@@ -327,13 +327,17 @@ button
     .about-text, .about-image { min-width: 100%; }
     .about-image img { max-width: 85%; margin: 0 auto; display: block; }
     
-    /* Center standalone images in main content */
-    section img {
+    /* Center standalone images in main content - Mobile */
+    section img:not(.about-image img),
+    main img:not(.about-image img):not(.hero-image):not(.contact-hero-img) {
         max-width: 100%;
+        width: 100%;
         height: auto;
         border-radius: 20px;
         display: block;
         margin: 1.5rem auto;
+        object-fit: contain;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
 }
 
@@ -369,6 +373,20 @@ main
     background-color: rgba(0,0,0,0.3);
     border-radius: 16px;
     backdrop-filter: blur(8px);
+}
+
+/* Standalone images in main content - Desktop */
+main img:not(.about-image img):not(.hero-image):not(.contact-hero-img),
+section img:not(.about-image img) {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+    margin: 2rem auto;
+    object-fit: contain;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    filter: brightness(90%);
 }
 footer
 {
