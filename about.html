@@ -6,6 +6,7 @@
     <title>About</title>
     <link rel="stylesheet" href="trizen-studios-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
 </head>
 <body>
     <header class="brand-header">
@@ -21,16 +22,30 @@
         </ul>
     </nav>
     <div class="top-bar"></div>
+
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <div class="dropdown-item" id="dark-mode-toggle">
+            <i class="fas fa-moon"></i> Toggle Dark Mode
+        </div>
+        <div class="dropdown-item" id="icons-mode-toggle">
+            <i class="fas fa-icons"></i> Toggle Icons Mode
+        </div>
+    </div>
+
     <div class="search-bar default">
         <div class="input-group">
             <input id="q" placeholder="Search">
-            <button onclick="search()">Go</button>
+            <button onclick="search()"><i class="fas fa-search"></i></button>
         </div>
         <div id="r"></div>
     </div>
 
     <div class="hero">
-        <img src="Trizen-Studios-Logo.png" alt="Afterlife Characters" class="hero-image">
+        <img src="Trizen-Studios-Logo.png" alt="trizen studios logo" class="hero-image">
         <div class="hero-text">
             <h1>About</h1>
             <p>Get Ready to Explore</p>
@@ -47,7 +62,7 @@
                    I channel my passion for chaotic creativity into bold ventures. We're dedicated to crafting unique characters and epic stories, starting with the Afterlife Series—a futuristic universe of endless faraway lands.</p>
             </div>
             <div class="about-image">
-                <img src="Afterlife-characters-Screen.webp" alt="Image of the website owner, Thomas Calabria">
+                <img src="Afterlife-characters-Screen.webp" alt="Afterlife Characters">
             </div>
         </section>
 
@@ -56,7 +71,7 @@
 
         <h2>Afterlife Series</h2>
         <p>Check out my favorite project, <a href="watch.html">Afterlife Characters</a>, for a soon-to-be-developed animation series.</p>
-        <img src="Afterlife-characters-Screen.webp" alt="Three diamond shaped anthropomorphic robots from an animated series">
+        <img src="Afterlife-characters-Screen.webp" alt="Afterlife Characters">
 
         <p>To The Stars! Follow us for updates, sketches, and exclusive content!</p><br>
 

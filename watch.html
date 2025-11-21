@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch - Trizen Studios</title>
     <link rel="stylesheet" href="trizen-studios-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
     <style>
         /* --- DESKTOP STYLES --- */
-        .yt-header { 
-            padding: 20px 0; 
+        .yt-header {
+            padding: 20px 0;
             /* FIXED: Increased to 220px to clear the fixed Navbar on Desktop */
-            margin-top: 250px; 
-            text-align: center; 
-            background: rgba(0,0,0,0.4); 
-            margin-bottom: 20px; 
+            margin-top: 250px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
             border-radius: 20px;
         }
-        .yt-brand img { 
-            height: 80px; 
-            width: auto; 
-            vertical-align: middle; 
+
+        .yt-brand img {
+            height: 80px;
+            width: auto;
+            vertical-align: middle;
         }
-        .yt-brand span { 
-            font-size: 2rem; 
-            margin-left: 12px; 
-            vertical-align: middle; 
+
+        .yt-brand span {
+            font-size: 2rem;
+            margin-left: 12px;
+            vertical-align: middle;
             color: #fff;
             font-weight: bold;
         }
@@ -34,45 +38,69 @@
         @media (max-width: 768px) {
             .yt-header {
                 /* Mobile needs less space because elements are smaller */
-                margin-top: 140px; 
+                margin-top: 140px;
                 padding: 15px;
             }
+
             .yt-brand img {
-                height: 60px; 
+                height: 60px;
             }
+
             .yt-brand span {
-                display: block; 
+                display: block;
                 margin-left: 0;
                 margin-top: 10px;
                 font-size: 1.5rem;
             }
+
             .video-grid {
                 padding: 10px;
             }
         }
 
-        .video-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 24px; 
-            padding: 20px; 
-            max-width: 1400px; 
-            margin: 0 auto; 
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .video-card { 
-            background: rgba(255,255,255,0.1); 
-            border-radius: 16px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: transform 0.2s; 
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .video-card:hover { transform: scale(1.03); }
-        .video-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-        .video-info { padding: 12px; }
-        .video-info h3 { margin: 0 0 8px; font-size: 1.1rem; }
-        .video-meta { font-size: 0.85rem; color: #aaa; }
+
+        .video-card:hover {
+            transform: scale(1.03);
+        }
+
+        .video-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 12px;
+        }
+
+        .video-info h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+        }
+
+        .video-meta {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
     </style>
 </head>
+
 <body>
 
     <header class="brand-header">
@@ -91,17 +119,30 @@
 
     <div class="top-bar"></div>
 
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <div class="dropdown-item" id="dark-mode-toggle">
+            <i class="fas fa-moon"></i> Toggle Dark Mode
+        </div>
+        <div class="dropdown-item" id="icons-mode-toggle">
+            <i class="fas fa-icons"></i> Toggle Icons Mode
+        </div>
+    </div>
+
     <div class="search-bar default">
         <div class="input-group">
             <input id="q" placeholder="Search site...">
-            <button onclick="search()">Go</button>
+            <button onclick="search()"><i class="fas fa-search"></i></button>
         </div>
         <div id="r"></div>
     </div>
 
     <div class="yt-header">
         <div class="yt-brand" onclick="location.href='watch.html'">
-            <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios">
+            <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Logo">
             <span>Trizen Studios</span>
         </div>
         <div>
@@ -119,7 +160,7 @@
 
     <script>
         const API_KEY = 'AIzaSyDNxZGB5JB_Btuj1nEhsdCN0Fvrw4ikGrU';
-        const UPLOADS_PLAYLIST = 'UUI_3Xab-gpJkN22hR8rOWEQ';   
+        const UPLOADS_PLAYLIST = 'UUI_3Xab-gpJkN22hR8rOWEQ';
 
         async function loadVideos() {
             try {
@@ -162,4 +203,5 @@
         loadVideos();
     </script>
 </body>
+
 </html>

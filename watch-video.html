@@ -1,68 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="videoTitle">Trizen Studios</title>
     <link rel="stylesheet" href="trizen-studios-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
     <style>
         /* (Your existing CSS here) */
-        body { padding-top: 250px; min-height: 100vh; }
-        .watch-container { max-width: 1400px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
-        .player-wrapper { position: relative; padding-bottom: 56.25%; background: #000; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.6); }
-        .player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .video-title { font-size: 2.1rem; margin: 28px 0 14px; line-height: 1.3; }
-        .video-stats { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; font-size: 1.05rem; color: #aaa; }
-        .like-btn { background: rgba(255,255,255,0.12); border: none; color: white; padding: 12px 28px; border-radius: 50px; cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px; transition: background 0.3s; }
-        .like-btn:hover { background: rgba(255,255,255,0.22); }
-        .description { background: rgba(255,255,255,0.08); padding: 24px; border-radius: 16px; white-space: pre-wrap; line-height: 1.6; margin: 32px 0; }
-        .show-more { color: #00ffff; cursor: pointer; font-weight: bold; }
-        .related-sidebar h3 { margin: 0 0 20px 0; font-size: 1.5rem; }
-        .related-video { display: flex; gap: 12px; cursor: pointer; padding: 12px; border-radius: 12px; transition: background 0.2s; margin-bottom: 16px; }
-        .related-video:hover { background: rgba(255,255,255,0.12); }
-        .related-video img { width: 168px; height: 94px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
-        .related-info h4 { margin: 0 0 6px; font-size: 0.95rem; }
-        .related-info p { margin: 0; font-size: 0.85rem; color: #aaa; }
-        .bottom-related { margin-top: 80px; }
-        .bottom-related h2 { margin-bottom: 24px; }
-        .bottom-grid { display: grid; grid-auto-flow: column; grid-auto-columns: 280px; gap: 20px; overflow-x: auto; padding: 10px 0; }
-        .bottom-grid::-webkit-scrollbar { height: 8px; }
-        .bottom-grid::-webkit-scrollbar-thumb { background: #00ffff; border-radius: 4px; }
-        .bottom-video { cursor: pointer; transition: transform 0.2s; }
-        .bottom-video:hover { transform: scale(1.05); }
-        .bottom-video img { width: 100%; height: 157px; object-fit: cover; border-radius: 12px; }
-        .bottom-video h4 { margin: 10px 0 4px; font-size: 0.95rem; }
-        
+        body {
+            padding-top: 250px;
+            min-height: 100vh;
+        }
+
+        .watch-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+        }
+
+        .player-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-title {
+            font-size: 2.1rem;
+            margin: 28px 0 14px;
+            line-height: 1.3;
+        }
+
+        .video-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+            color: #aaa;
+        }
+
+        .like-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        .like-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .description {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 24px;
+            border-radius: 16px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            margin: 32px 0;
+        }
+
+        .show-more {
+            color: #00ffff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .related-sidebar h3 {
+            margin: 0 0 20px 0;
+            font-size: 1.5rem;
+        }
+
+        .related-video {
+            display: flex;
+            gap: 12px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 12px;
+            transition: background 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .related-video:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .related-video img {
+            width: 168px;
+            height: 94px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .related-info h4 {
+            margin: 0 0 6px;
+            font-size: 0.95rem;
+        }
+
+        .related-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .bottom-related {
+            margin-top: 80px;
+        }
+
+        .bottom-related h2 {
+            margin-bottom: 24px;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 280px;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .bottom-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .bottom-grid::-webkit-scrollbar-thumb {
+            background: #00ffff;
+            border-radius: 4px;
+        }
+
+        .bottom-video {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .bottom-video:hover {
+            transform: scale(1.05);
+        }
+
+        .bottom-video img {
+            width: 100%;
+            height: 157px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .bottom-video h4 {
+            margin: 10px 0 4px;
+            font-size: 0.95rem;
+        }
+
+        /* Prevent overflow and ensure centering */
+        body {
+            width: 100vw;
+            max-width: 100vw;
+            overflow-x: hidden;
+            margin: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .navbar,
+        .search-bar,
+        .brand-header,
+        .top-bar,
+        .watch-container {
+            width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+
         /* Mobile Layout - YouTube-style: Main video first, then Recent Videos, then More from Trizen Studios */
-        @media (max-width: 1024px) { 
-            body { 
-                padding-top: 140px; 
+        @media (max-width: 1024px) {
+            body {
+                padding-top: 140px;
                 overflow-x: hidden;
             }
-            .watch-container { 
+
+            .watch-container {
                 display: flex;
                 flex-direction: column;
                 gap: 0;
                 padding: 0;
                 max-width: 100%;
                 margin: 0;
+                width: 100vw;
+                padding-left: 0;
+                padding-right: 0;
             }
+
             /* Main content container */
-            .watch-container > div:first-child {
+            .watch-container>div:first-child {
                 order: 1;
                 width: 100%;
                 padding: 0;
                 max-width: 100%;
             }
+
             /* Recent Videos sidebar */
-            .related-sidebar { 
+            .related-sidebar {
                 order: 2;
                 margin-top: 30px;
                 padding: 0 15px;
                 width: 100%;
                 max-width: 100%;
             }
+
             /* More from Trizen Studios */
             .bottom-related {
                 order: 3;
@@ -71,16 +239,19 @@
                 width: 100%;
                 max-width: 100%;
             }
+
             /* Video player - full width, no overflow */
             .player-wrapper {
                 position: relative;
                 width: 100%;
                 max-width: 100%;
                 margin: 0;
-                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                padding-bottom: 56.25%;
+                /* 16:9 aspect ratio */
                 border-radius: 0;
                 overflow: hidden;
             }
+
             .player-wrapper iframe {
                 position: absolute;
                 top: 0;
@@ -88,27 +259,31 @@
                 width: 100%;
                 height: 100%;
             }
+
             /* Video title */
-            .video-title { 
-                font-size: 1.2rem; 
+            .video-title {
+                font-size: 1.2rem;
                 margin: 16px 0 12px;
                 padding: 0 15px;
                 line-height: 1.4;
                 word-wrap: break-word;
             }
+
             /* Video stats */
-            .video-stats { 
+            .video-stats {
                 flex-wrap: wrap;
                 gap: 12px;
                 margin-bottom: 16px;
                 padding: 0 15px;
                 font-size: 0.85rem;
             }
+
             .like-btn {
                 padding: 8px 16px;
                 font-size: 0.85rem;
                 width: auto;
             }
+
             /* Description */
             .description {
                 margin: 20px 0;
@@ -117,44 +292,53 @@
                 word-wrap: break-word;
                 overflow-wrap: break-word;
             }
+
             /* Recent Videos section */
             .related-sidebar h3 {
                 font-size: 1.1rem;
                 margin-bottom: 16px;
                 padding: 0;
             }
+
             .related-video {
                 padding: 10px;
                 margin-bottom: 12px;
                 width: 100%;
                 box-sizing: border-box;
             }
+
             .related-video img {
                 width: 140px;
                 height: 78px;
                 flex-shrink: 0;
             }
+
             .related-info {
                 flex: 1;
                 min-width: 0;
             }
+
             .related-info h4 {
                 font-size: 0.9rem;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
                 line-height: 1.3;
             }
+
             .related-info p {
                 font-size: 0.8rem;
             }
+
             /* More from Trizen Studios section */
             .bottom-related {
                 margin-top: 30px;
             }
+
             .bottom-related h2 {
                 font-size: 1.1rem;
                 margin-bottom: 16px;
             }
+
             .bottom-grid {
                 grid-auto-columns: minmax(160px, 1fr);
                 gap: 12px;
@@ -162,18 +346,22 @@
                 -webkit-overflow-scrolling: touch;
                 padding-bottom: 10px;
             }
+
             .bottom-grid::-webkit-scrollbar {
                 height: 4px;
             }
+
             .bottom-video {
                 min-width: 0;
             }
+
             .bottom-video img {
                 width: 100%;
                 height: auto;
                 aspect-ratio: 16/9;
                 object-fit: cover;
             }
+
             .bottom-video h4 {
                 font-size: 0.85rem;
                 margin-top: 8px;
@@ -181,78 +369,119 @@
                 overflow-wrap: break-word;
                 line-height: 1.3;
             }
+
+            /* Center navbar and search bar */
+            .navbar ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .search-bar {
+                text-align: center;
+                width: 100vw;
+            }
         }
-        
+
         /* Tablet specific styles (iPad, etc.) */
         @media (min-width: 768px) and (max-width: 1024px) {
-            body { 
-                padding-top: 160px; 
+            body {
+                padding-top: 160px;
             }
+
             .watch-container {
                 padding: 0 20px;
+                width: 100vw;
             }
+
             .player-wrapper {
                 border-radius: 12px;
                 margin: 0 auto;
                 max-width: 100%;
             }
+
             .video-title {
                 font-size: 1.4rem;
                 padding: 0 20px;
             }
+
             .video-stats {
                 padding: 0 20px;
             }
+
             .description {
                 padding: 20px;
             }
+
             .related-sidebar,
             .bottom-related {
                 padding: 0 20px;
             }
+
             .related-video img {
                 width: 180px;
                 height: 101px;
             }
+
             .bottom-grid {
                 grid-auto-columns: minmax(200px, 1fr);
             }
+
+            /* Center navbar */
+            .navbar ul {
+                justify-content: center;
+            }
         }
-        
+
         /* Small mobile devices */
         @media (max-width: 480px) {
-            body { 
-                padding-top: 120px; 
+            body {
+                padding-top: 120px;
             }
+
             .video-title {
                 font-size: 1.1rem;
                 padding: 0 12px;
             }
+
             .video-stats {
                 padding: 0 12px;
                 font-size: 0.8rem;
             }
+
             .description {
                 padding: 12px;
                 font-size: 0.85rem;
             }
+
             .related-sidebar,
             .bottom-related {
                 padding: 0 12px;
             }
+
             .related-video img {
                 width: 120px;
                 height: 67px;
             }
+
             .related-info h4 {
                 font-size: 0.85rem;
             }
+
             .bottom-grid {
                 grid-auto-columns: minmax(140px, 1fr);
             }
         }
+
+        /* Override global CSS for navbar on watch-video.html desktop */
+        @media (min-width: 769px) {
+            .navbar {
+                max-width: 600px;
+                width: auto;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <header class="brand-header">
@@ -271,10 +500,23 @@
 
     <div class="top-bar"></div>
 
+        <!-- Hamburger Menu -->
+        <button class="hamburger" id="hamburger-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <div class="dropdown-item" id="dark-mode-toggle">
+                <i class="fas fa-moon"></i> Toggle Dark Mode
+            </div>
+            <div class="dropdown-item" id="icons-mode-toggle">
+                <i class="fas fa-icons"></i> Toggle Icons Mode
+            </div>
+        </div>
+
     <div class="search-bar default">
         <div class="input-group">
             <input id="q" placeholder="Search site...">
-            <button onclick="search()">Go</button>
+            <button onclick="search()"><i class="fas fa-search"></i></button>
         </div>
         <div id="r"></div>
     </div>
@@ -317,10 +559,10 @@
 
     <script>
         const API_KEY = 'AIzaSyDNxZGB5JB_Btuj1nEhsdCN0Fvrw4ikGrU';
-        
+
         // We use your "Uploads" Playlist ID (starts with UU) instead of Channel ID (UC)
         // This saves massive amounts of API quota.
-        const UPLOADS_PLAYLIST_ID = 'UUI_3Xab-gpJkN22hR8rOWEQ'; 
+        const UPLOADS_PLAYLIST_ID = 'UUI_3Xab-gpJkN22hR8rOWEQ';
 
         const urlParams = new URLSearchParams(window.location.search);
         let videoId = urlParams.get('id');
@@ -341,11 +583,11 @@
                     videoId: videoId,
                     playerVars: { autoplay: 0, rel: 0, modestbranding: 1 },
                     events: {
-                        'onReady': function(event) {
+                        'onReady': function (event) {
                             playerReady = true;
                             console.log('Player ready');
                         },
-                        'onError': function(event) {
+                        'onError': function (event) {
                             console.error('Player error:', event.data);
                         }
                     }
@@ -386,23 +628,23 @@
             try {
                 // 1. Fetch Main Video Details
                 const vRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`);
-                
+
                 if (!vRes.ok) {
                     throw new Error(`API request failed: ${vRes.status} ${vRes.statusText}`);
                 }
-                
+
                 const vData = await vRes.json();
-                
+
                 if (vData.error) {
                     throw new Error(`YouTube API Error: ${vData.error.message}`);
                 }
-                
+
                 const v = vData.items ? vData.items[0] : null;
-                
+
                 if (!v) {
                     throw new Error('Video not found');
                 }
-                
+
                 const s = v.snippet;
                 const st = v.statistics;
 
@@ -419,13 +661,13 @@
 
                 // 2. Fetch YOUR Uploads Playlist (Much cheaper on Quota than Search)
                 const pRes = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${UPLOADS_PLAYLIST_ID}&maxResults=50&key=${API_KEY}`);
-                
+
                 if (!pRes.ok) {
                     throw new Error(`Playlist API request failed: ${pRes.status} ${pRes.statusText}`);
                 }
-                
+
                 const pData = await pRes.json();
-                
+
                 if (pData.error) {
                     throw new Error(`YouTube API Error: ${pData.error.message}`);
                 }
@@ -446,11 +688,11 @@
                 // 3. Populate Recent Videos Sidebar
                 const sidebar = document.getElementById('related');
                 sidebar.innerHTML = '';
-                
+
                 // Get recent videos and track their IDs
                 const recentVideos = myVideos.slice(0, recentCount);
                 const recentVideoIds = recentVideos.map(item => item.snippet.resourceId.videoId);
-                
+
                 recentVideos.forEach(item => {
                     const vidId = item.snippet.resourceId.videoId;
                     const el = document.createElement('div');
@@ -460,7 +702,7 @@
                         <img src="${item.snippet.thumbnails.medium.url}" alt="">
                         <div class="related-info">
                             <h4>${item.snippet.title}</h4>
-                            <p>${item.snippet.publishedAt.substring(0,10)}</p>
+                            <p>${item.snippet.publishedAt.substring(0, 10)}</p>
                         </div>
                     `;
                     sidebar.appendChild(el);
@@ -469,20 +711,20 @@
                 // 4. Populate "More from Trizen Studios" - exclude recent videos
                 const bottom = document.getElementById('bottomVideos');
                 bottom.innerHTML = '';
-                
+
                 // Get videos that are NOT in recent videos
                 const moreVideos = myVideos
                     .filter(item => !recentVideoIds.includes(item.snippet.resourceId.videoId))
                     .slice(0, moreVideosCount);
-                
+
                 moreVideos.forEach(item => {
                     const vidId = item.snippet.resourceId.videoId;
                     const el = document.createElement('div');
                     el.className = 'bottom-video';
                     el.onclick = () => loadNewVideo(vidId);
-                    
+
                     const thumbUrl = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.medium.url;
-                    
+
                     el.innerHTML = `
                         <img src="${thumbUrl}" alt="">
                         <h4>${item.snippet.title}</h4>
@@ -496,7 +738,7 @@
                 const titleEl = document.getElementById('title');
                 const statsEl = document.getElementById('stats');
                 const descEl = document.getElementById('description');
-                
+
                 if (titleEl) titleEl.textContent = 'Error loading video';
                 if (statsEl) statsEl.innerHTML = '<span style="color: #ff6666;">Failed to load video data. Please try again.</span>';
                 if (descEl) descEl.textContent = error.message || 'An unknown error occurred';
@@ -505,14 +747,14 @@
 
         // Make sure onYouTubeIframeAPIReady is globally accessible
         window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-        
+
         // If API is already loaded, initialize immediately
         if (typeof YT !== 'undefined' && YT.Player) {
             initPlayer();
             loadVideoData();
         }
         // Otherwise, wait for the API to call onYouTubeIframeAPIReady
-        
+
         // Reload video data on resize to update video counts for mobile/desktop
         let videoResizeTimeout;
         window.addEventListener('resize', () => {
@@ -528,4 +770,5 @@
         }, { passive: true });
     </script>
 </body>
+
 </html>

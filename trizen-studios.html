@@ -7,6 +7,7 @@
     <title>Trizen Studios</title>
     <link rel="stylesheet" href="trizen-studios-styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
 </head>
 
 <body>
@@ -25,18 +26,31 @@
 
     <div class="top-bar"></div>
 
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <div class="dropdown-item" id="dark-mode-toggle">
+            <i class="fas fa-moon"></i> Toggle Dark Mode
+        </div>
+        <div class="dropdown-item" id="icons-mode-toggle">
+            <i class="fas fa-icons"></i> Toggle Icons Mode
+        </div>
+    </div>
+
     <!-- Search Bar for the Page -->
 <div class="search-bar default">
     <div class="input-group">
         <input id="q" placeholder="Search">
-        <button onclick="search()">Go</button>
+        <button onclick="search()"><i class="fas fa-search"></i></button>
     </div>
     <div id="r"></div>
 </div>
 
     <!-- Hero Section w/ Main Image for Users to see first-->
 <div class="hero">
-    <img src="Jason-vs-Malachi-Final.jpg" alt="Trizen Studios Hero" class="hero-image">
+    <img src="Jason-vs-Malachi-Final.jpg" alt="Jason vs Malachi" class="hero-image">
     <div class="hero-text">
         <h1>Welcome to Trizen Studios</h1>
         <p>It all starts here</p>

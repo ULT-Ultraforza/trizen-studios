@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Trizen Studios</title>
+    <link rel="stylesheet" href="trizen-studios-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <style>
+        body { padding-top: 220px; } /* Increased padding to avoid search bar overlap */
+        .results-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Left: results, Right: thumbnails */
+            gap: 40px;
+        }
+        .results-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .result-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .result-item:hover { transform: scale(1.02); }
+        .result-title { color: cyan; font-size: 1.5rem; margin-bottom: 10px; }
+        .result-snippet { color: #fff; line-height: 1.6; }
+        .results-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .thumbnail-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .thumbnail-item:hover { transform: scale(1.05); }
+        .thumbnail-item img { width: 100%; border-radius: 8px; }
+        .thumbnail-item p { margin-top: 10px; color: #fff; }
+        @media (max-width: 768px) {
+            .results-container { grid-template-columns: 1fr; } /* Stack on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="brand-header">
+        <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Logo" class="logo">
+        <span class="company-name">Trizen Studios</span>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="trizen-studios.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="watch.html">Watch</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="top-bar"></div>
+
+        <!-- Hamburger Menu -->
+        <button class="hamburger" id="hamburger-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <div class="dropdown-item" id="dark-mode-toggle">
+                <i class="fas fa-moon"></i> Toggle Dark Mode
+            </div>
+            <div class="dropdown-item" id="icons-mode-toggle">
+                <i class="fas fa-icons"></i> Toggle Icons Mode
+            </div>
+        </div>
+
+    <div class="search-bar default">
+        <div class="input-group">
+            <input id="q" placeholder="Search site...">
+            <button onclick="performSearch()"><i class="fas fa-search"></i></button>
+        </div>
+        <div id="r"></div>
+    </div>
+
+    <div class="results-container">
+        <div class="results-left" id="results-list">
+            <!-- Results populated by JS -->
+        </div>
+        <div class="results-right" id="thumbnails-list">
+            <!-- Thumbnails populated by JS -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Trizen Studios. All rights reserved.</p>
+    </footer>
+
+    <script src="trizen-studios.js"></script>
+    <script>
+        // Load search results on page load
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query) {
+                document.getElementById('q').value = query; // Pre-fill search
+                displaySearchResults(query);
+            }
+        });
+
+        async function displaySearchResults(q) {
+            // Assuming searchIndex is loaded (from trizen-studios.js)
+            const results = lunrIndex.search(q + '*').slice(0, 10); // Top 10
+            const resultsList = document.getElementById('results-list');
+            const thumbnailsList = document.getElementById('thumbnails-list');
+
+            resultsList.innerHTML = '';
+            thumbnailsList.innerHTML = '';
+
+            results.forEach(res => {
+                const doc = searchIndex.find(d => d.id === res.ref);
+                if (!doc) return;
+
+                // Left: Result link
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result-item';
+                resultDiv.onclick = () => window.location.href = doc.page;
+                resultDiv.innerHTML = `
+                    <div class="result-title">${doc.fullText}</div>
+                    <div class="result-snippet">${makePreview(doc.fullText, q)}</div>
+                `;
+                resultsList.appendChild(resultDiv);
+
+                // Right: Thumbnail (if available, for videos or static images)
+                if (doc.thumbnail) {
+                    const thumbDiv = document.createElement('div');
+                    thumbDiv.className = 'thumbnail-item';
+                    thumbDiv.onclick = () => window.location.href = doc.page;  // Make clickable
+                    thumbDiv.innerHTML = `
+                        <img src="${doc.thumbnail}" alt="Thumbnail">
+                        <p>${doc.fullText}</p>
+                    `;
+                    thumbnailsList.appendChild(thumbDiv);
+                }
+            });
+
+            if (results.length === 0) {
+                resultsList.innerHTML = '<p style="color: #fff;">No results found.</p>';
+            }
+        }
+    </script>
+</body>
+</html>

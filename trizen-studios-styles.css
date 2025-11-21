@@ -2,7 +2,7 @@
    trizen-studios-styles.css – FINAL: Desktop Image Full, Mobile Centered
    -------------------------------------------------------------- */
 
-html {
+   html {
     min-height: 100%;
     height: 100%;
 }
@@ -37,6 +37,123 @@ body
     background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
     backdrop-filter: blur(10px);
     z-index: 900;
+}
+
+/* Hamburger Menu Button */
+.hamburger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1200;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    padding: 0.7rem;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.hamburger:hover {
+    background: rgba(0,255,255,0.3);
+    border-color: cyan;
+    box-shadow: 0 4px 12px rgba(0,255,255,0.4);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    padding: 10px 0;
+    min-width: 200px;
+    z-index: 1100;
+    display: none;
+    color: #fff;
+}
+.dropdown-menu.show {
+    display: block;
+}
+.dropdown-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+.dropdown-item:hover {
+    background: rgba(0,255,255,0.1);
+}
+
+/* Dark Mode - Full Page Toggle */
+body.dark-mode {
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('Trizen-Studios-Background-Screen.webp');
+    background-blend-mode: multiply;
+    color: #fff;
+}
+body.dark-mode .navbar {
+    background-color: rgba(0,0,0,0.9);
+    border-color: rgba(255,255,255,0.5);
+}
+body.dark-mode .search-bar input {
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    border-color: rgba(255,255,255,0.5);
+}
+body.dark-mode .dropdown-menu {
+    background: rgba(0,0,0,0.9);
+}
+body.dark-mode .result-item, body.dark-mode .thumbnail-item {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+}
+body.dark-mode main {
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* Icons Mode - Hide Text, Show Icons Only */
+.navbar a.icon-mode {
+    font-size: 0; /* Hide text */
+    margin: 0 20px; /* Space between icons */
+}
+.navbar a.icon-mode::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    margin-right: 0;
+    vertical-align: middle;
+}
+.navbar a.icon-mode[href*="trizen-studios.html"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>');
+}
+
+.navbar a.icon-mode[href*="about.html"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"></path></svg>');
+}
+
+.navbar a.icon-mode[href*="watch.html"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3" ry="3"/><polygon points="10,8 16,12 10,16" fill="white"/></svg>');
+}
+
+.navbar a.icon-mode[href*="contact.html"]::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"></path></svg>');
+}
+
+.navbar a.icon-mode:hover::before {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(10000%) hue-rotate(180deg) brightness(2);
 }
 
 /* Brand Header – Clickable to Home */
@@ -139,7 +256,7 @@ body
 .search-bar.shrunk
 {
     top: 30px;
-    right: 20px;
+    right: 80px;  /* Move left of hamburger (hamburger is ~50px wide at right:20px) */
     left: auto;
     transform: none;
     max-width: 300px;
@@ -151,11 +268,12 @@ body
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
+    position: relative;  /* For absolute positioning of button */
 }
 input#q
 {
     width: 100%;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 3.5rem 0.8rem 1.5rem;  /* Added right padding for button */
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 9999px;
     font-size: 1.1rem;
@@ -166,14 +284,32 @@ input#q
 }
 button
 {
-    margin-left: -55px;
+    position: absolute;
+    right: 0.5rem;  /* Position on the right */
     border-radius: 50%;
     padding: 0.7rem;
-    border: none;
-    background: black;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
     color: white;
     cursor: url('Jason-Themed-Cursor-Resized.png') 0 0, auto;
     z-index: 2;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    margin-left: 0;  /* Removed negative margin */
+}
+button:hover
+{
+    background: rgba(0,255,255,0.3);
+    border-color: cyan;
+    box-shadow: 0 4px 12px rgba(0,255,255,0.4);
+}
+button i
+{
+    font-size: 1.1rem;
 }
 #r
 {
@@ -399,170 +535,126 @@ footer
 }
 
 /* --------------------------------------------------------------
-   MOBILE: Clean Layout on All Pages
+   MOBILE: Clean Layout on All Pages (Extended to Tablets)
    -------------------------------------------------------------- */
-@media (max-width: 768px)
-{
-    .brand-header { top: 8px; left: 15px; z-index: 1200; }
-    .brand-header.shrunk { top: 8px; }
-    .logo { width: 60px; }
-    .company-name { font-size: 1.4rem; }
-
-    .navbar { top: 70px; left: 50%; transform: translateX(-50%); }
-    .navbar.shrunk { top: 70px; left: 50%; transform: translateX(-50%); max-width: 400px; padding: 8px 15px; }
-    .navbar ul { gap: 15px; }
-
-    .search-bar, .search-bar.shrunk
-    {
-        top: auto;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 90%;
-    }
-    input#q { font-size: 1rem; padding: 0.7rem 1.2rem; }
-    button { margin-left: -50px; padding: 0.6rem; }
-
-    #r { top: auto; bottom: 100%; margin-bottom: 8px; margin-top: 0; }
-
-    .hero { margin-top: 140px; height: 50vh; min-height: 300px; }
-    .hero .hero-text h1 { font-size: 2.2rem; }
-    .hero .hero-text p { font-size: 1.1rem; }
-
-    .hero-image-contact-us { 
-        aspect-ratio: 4 / 3; 
-        margin: 2rem auto; 
-        width: 95%;
-    }
-    .hero-image-contact-us .hero-text h1 { font-size: 1.8rem; }
-    .hero-image-contact-us .hero-text p { font-size: 1rem; }
-    section h3 { text-align: center; margin-top: 2rem; }
-
-    .social-icons { 
-        gap: 20px; 
-        justify-content: center;
-    }
-    .social-icons img, .social-icons i { height: 55px; }
-    .social-icons .fa-youtube, .social-icons .fa-instagram { font-size: 55px; }
-    
-    main { padding: 1.5rem; }
-    
-    /* Remove inline margin-left on social icons in mobile */
-    section p a, 
-    section div a,
-    .hero-image-contact-us a {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-}
-
-@media (max-width: 480px)
-{
-    .brand-header .logo { width: 50px; }
-    .brand-header .company-name { font-size: 1.2rem; }
-    
-    .navbar ul { gap: 8px; padding: 0 5px; }
-    .navbar a { font-size: 0.9rem; }
-    .navbar { padding: 8px 10px; }
-    
-    .search-bar, .search-bar.shrunk { 
-        max-width: 85%; 
-        bottom: 15px;
-    }
-    input#q { font-size: 0.9rem; padding: 0.6rem 1rem; }
-    
-    .hero { margin-top: 120px; height: 45vh; min-height: 250px; }
-    .hero .hero-text h1 { font-size: 1.8rem; }
-    .hero .hero-text p { font-size: 1rem; }
-    
-    .social-icons { 
-        gap: 15px;
-        margin: 1.5rem 0;
-    }
-    .social-icons img, .social-icons i { height: 45px; }
-    .social-icons .fa-youtube, .social-icons .fa-instagram { font-size: 45px; }
-    
-    main { padding: 1rem; }
-}
-
-        /* ---- Mini-YouTube specific styles (added to the page) ---- */
-        .yt-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            padding: 170px 0;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .yt-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .yt-brand img { width: 45px; }
-        .yt-brand span { font-size: 1.5rem; font-weight: 600; color:#fff; }
-        .yt-search .input-group {
-            display: flex;
-            background: rgba(0,0,0,0.2);
-            border-radius: 50px;
-            overflow: hidden;
-            max-width: 600px;
-            width: 100%;
-        }
-        .yt-search input {
-            flex:1; padding:12px 20px; background:transparent;
-            border:none; color:#fff; font-size:1rem;
-        }
-        .yt-search input::placeholder { color:rgba(255,255,255,0.7); }
-        .yt-search button {
-            padding: auto; background:rgba(255,255,255,0.2);
-            border:none; color:#fff; cursor:pointer;
-            transition:background .3s;
-        }
-        .yt-search button:hover { background:cyan; color:#000; }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
-            gap: 24px;
-            padding: 0 20px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .video-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .video-card video { width:100%; aspect-ratio:16/9; background:#000; }
-        .video-info { padding:12px; }
-        .video-info h3 { margin:0 0 6px; font-size:1.15rem; }
-        .video-stats { font-size:0.9rem; margin-bottom:8px; }
-        .video-stats span { margin-right:12px; }
-        .video-desc { font-size:0.9rem; line-height:1.4; margin-bottom:12px; }
-        .like-btn {
-            background:cyan; color:#000; border:none;
-            padding: 6px 12px; border-radius:4px; cursor:pointer;
-            margin-bottom:12px;
-            margin-left: auto;
-        }
-        .comments { border-top:1px solid rgba(255,255,255,0.3); padding-top:12px;}
-        .comments p { margin:6px 0; font-size:0.85rem; }
-        .comments small { color:rgba(255,255,255,0.7); }
-        .comment-form { display:flex; margin-top:12px; margin-bottom: 12px;}
-        .comment-form input {
-            flex:1; padding:8px; background:rgba(255,255,255,0.1);
-            border:1px solid rgba(255,255,255,0.3); color:#fff;
-            border-radius:4px 0 0 4px;
-        }
-        .comment-form button {
-            background:cyan; color:#000; border:none;
-            padding:0 12px; border-radius:0 4px 4px 0; cursor:pointer;
-        }
-        @media (max-width:768px){
-            .yt-header{ flex-direction:column; gap:12px; }
-            .video-grid{ grid-template-columns:1fr; }
-        }
+   @media (max-width: 1024px)
+   {
+       .brand-header { top: 8px; left: 15px; z-index: 1200; }
+       .brand-header.shrunk { top: 8px; }
+       .logo { width: 60px; }
+       .company-name { font-size: 1.4rem; }
+   
+       .navbar { top: 70px; left: 50%; transform: translateX(-50%); }
+       .navbar.shrunk { top: 70px; left: 50%; transform: translateX(-50%); max-width: 400px; padding: 8px 15px; }
+       .navbar ul { gap: 15px; justify-content: center; flex-wrap: wrap; }
+   
+       .search-bar, .search-bar.shrunk
+       {
+           top: auto !important;  /* Force bottom position */
+           bottom: 20px !important;
+           left: 50%;
+           transform: translateX(-50%);
+           max-width: 90%;
+       }
+       input#q { font-size: 1rem; padding: 0.7rem 1.2rem; }
+       button { margin-left: -50px; padding: 0.6rem; }
+   
+       #r { top: auto; bottom: 100%; margin-bottom: 8px; margin-top: 0; }
+   
+       .hero { margin-top: 140px; height: 50vh; min-height: 300px; }
+       .hero .hero-text h1 { font-size: 2.2rem; }
+       .hero .hero-text p { font-size: 1.1rem; }
+   
+       .hero-image-contact-us { 
+           aspect-ratio: 4 / 3; 
+           margin: 2rem auto; 
+           width: 95%;
+       }
+       .hero-image-contact-us .hero-text h1 { font-size: 1.8rem; }
+       .hero-image-contact-us .hero-text p { font-size: 1rem; }
+       section h3 { text-align: center; margin-top: 2rem; }
+   
+       .social-icons { 
+           gap: 20px; 
+           justify-content: center;
+       }
+       .social-icons img, .social-icons i { height: 55px; }
+       .social-icons .fa-youtube, .social-icons .fa-instagram { font-size: 55px; }
+       
+       main { padding: 1.5rem; }
+       
+       /* Remove inline margin-left on social icons in mobile */
+       section p a, 
+       section div a,
+       .hero-image-contact-us a {
+           margin-left: 0 !important;
+           margin-right: 0 !important;
+       }
+   }
+   
+   @media (max-width: 480px)
+   {
+       .brand-header .logo { width: 50px; }
+       .brand-header .company-name { font-size: 1.2rem; }
+       
+       .navbar ul { gap: 8px; padding: 0 5px; }
+       .navbar a { font-size: 0.9rem; }
+       .navbar { padding: 8px 10px; }
+       
+       .search-bar, .search-bar.shrunk { 
+           max-width: 85%; 
+           bottom: 15px;
+       }
+       input#q { font-size: 0.9rem; padding: 0.6rem 1rem; }
+       
+       .hero { margin-top: 120px; height: 45vh; min-height: 250px; }
+       .hero .hero-text h1 { font-size: 1.8rem; }
+       .hero .hero-text p { font-size: 1rem; }
+       
+       .social-icons { 
+           gap: 15px;
+           margin: 1.5rem 0;
+       }
+       .social-icons img, .social-icons i { height: 45px; }
+       .social-icons .fa-youtube, .social-icons .fa-instagram { font-size: 45px; }
+       
+       main { padding: 1rem; }
+   }
+   
+   /* Prevent horizontal scrolling on all devices */
+   * {
+     box-sizing: border-box;
+   }
+   
+   body {
+     width: 100vw;
+     max-width: 100vw;
+     overflow-x: hidden;
+   }
+   
+   .search-bar, .brand-header, .top-bar, .watch-container, .video-grid, .yt-header {
+     max-width: 100vw;
+     width: 100vw;
+     box-sizing: border-box;
+   }
+   
+   /* Mobile-specific: Ensure no padding causes overflow (Extended to Tablets) */
+   @media (max-width: 1024px) {
+     body {
+       padding-left: 0;
+       padding-right: 0;
+     }
+     .navbar, .search-bar, .brand-header, .top-bar, .watch-container, .video-grid, .yt-header {
+       max-width: 100vw;
+       width: 100vw;
+       box-sizing: border-box;
+     }
+     .navbar ul {
+       justify-content: center;
+       flex-wrap: wrap;
+     }
+     .search-bar {
+       text-align: center;
+       width: 100vw;
+     }
+   }
