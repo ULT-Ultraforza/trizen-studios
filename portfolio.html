@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Trizen Studios</title>
+    <link rel="stylesheet" href="trizen-studios-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+</head>
+<body>
+    <header class="brand-header">
+        <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Logo" class="logo">
+        <span class="company-name">Trizen Studios</span>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="trizen-studios.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="watch.html">Watch</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="top-bar"></div>
+
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="dropdown-menu" id="dropdown-menu">
+        <div class="dropdown-item" id="dark-mode-toggle">
+            <i class="fas fa-moon"></i> Toggle Dark Mode
+        </div>
+        <div class="dropdown-item" id="icons-mode-toggle">
+            <i class="fas fa-icons"></i> Toggle Icons Mode
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar default">
+        <div class="input-group">
+            <input id="q" placeholder="Search">
+            <button onclick="search()"><i class="fas fa-search"></i></button>
+        </div>
+        <div id="r"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <img src="Trizen-Studios-Background-Screen.webp" alt="Trizen Studios Portfolio" class="hero-image">
+        <div class="hero-text">
+            <h1>Portfolio</h1>
+            <p>Selected Works • Animation • Motion Graphics • Design</p>
+        </div>
+    </div>
+
+    <main>
+        <section>
+            <h2>My Portfolio</h2>
+            <p>Here you’ll find highlights from my work as a 2D animator, motion graphics artist, and designer at Trizen Studios.</p>
+
+            <!-- PDF Portfolio Embed -->
+            <h3>Full Portfolio PDF</h3>
+            <div style="text-align: center; margin: 30px 0;">
+                <iframe 
+                    src="YOUR-PORTFOLIO-PDF.pdf" 
+                    width="100%" 
+                    height="800px" 
+                    style="border: 1px solid #ccc; border-radius: 8px;">
+                </iframe>
+                <p><a href="" target="_blank" download>⬇️ Download Full Portfolio PDF</a></p>
+            </div>
+
+            <!-- You can add individual project cards below later if you want -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Trizen Studios. All rights reserved.</p>
+    </footer>
+
+    <script src="trizen-studios.js"></script>
+</body>
+</html>
