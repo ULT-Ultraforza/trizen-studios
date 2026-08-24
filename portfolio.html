@@ -3,10 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Trizen Studios</title>
+    <title>Portfolio - Thomas Calabria | Trizen Studios</title>
     <link rel="stylesheet" href="trizen-studios-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <style>
+        /* Modern Portfolio Scaffolding */
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+        .section-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        .section-intro h2 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .section-intro p {
+            font-size: 1.1rem;
+            color: #8a99a8;
+            line-height: 1.6;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .project-card {
+            background: #12161a;
+            border: 1px solid #222b35;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #00ffff;
+            box-shadow: 0 12px 28px rgba(0, 255, 255, 0.08);
+        }
+        .card-preview {
+            width: 100%;
+            height: 230px;
+            background: #1a222a;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #222b35;
+        }
+        .card-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover .card-preview img {
+            transform: scale(1.04);
+        }
+        .card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .card-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(0, 255, 255, 0.08);
+            color: #00ffff;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        .card-body h3 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .card-body p {
+            font-size: 0.95rem;
+            color: #9cb0c1;
+            line-height: 1.55;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .card-meta {
+            font-size: 0.85rem;
+            color: #5c6e7f;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-top: 1px solid #1e2630;
+            padding-top: 14px;
+        }
+        .pdf-cta-box {
+            background: #12171c;
+            border: 1px solid #222b35;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #00ffff;
+            color: #080a0c;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .pdf-btn:hover {
+            background: #5ffff8;
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body>
     <header class="brand-header">
@@ -18,7 +154,7 @@
         <ul>
             <li><a href="trizen-studios.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="portfolio.html" class="active">Portfolio</a></li>
             <li><a href="watch.html">Watch</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -42,7 +178,7 @@
     <!-- Search Bar -->
     <div class="search-bar default">
         <div class="input-group">
-            <input id="q" placeholder="Search">
+            <input id="q" placeholder="Search projects...">
             <button onclick="search()"><i class="fas fa-search"></i></button>
         </div>
         <div id="r"></div>
@@ -52,30 +188,140 @@
     <div class="hero">
         <img src="Trizen-Studios-Background-Screen.webp" alt="Trizen Studios Portfolio" class="hero-image">
         <div class="hero-text">
-            <h1>Portfolio</h1>
-            <p>Selected Works • Animation • Motion Graphics • Design</p>
+            <h1>Design Portfolio</h1>
+            <p>Brand Identity • Layout Design • Adobe Creative Cloud</p>
         </div>
     </div>
 
-    <main>
-        <section>
-            <h2>My Portfolio</h2>
-            <p>Here you’ll find highlights from my work as a 2D animator, motion graphics artist, and designer at Trizen Studios.</p>
+    <main class="portfolio-container">
+        
+        <div class="section-intro">
+            <h2>Commercial Works & Visual Systems</h2>
+            <p>A curated selection of visual branding systems, vector marks, editorial layouts, and digital marketing collateral built for real-world application.</p>
+        </div>
 
-            <!-- PDF Portfolio Embed -->
-            <h3>Full Portfolio PDF</h3>
-            <div style="text-align: center; margin: 30px 0;">
-                <iframe 
-                    src="Portfolio-Thomas-Calabria_compressed.pdf" 
-                    width="100%" 
-                    height="800px" 
-                    style="border: 1px solid #ccc; border-radius: 8px;">
-                </iframe>
-                <p><a href="Portfolio-Thomas-Calabria_compressed.pdf" target="_blank" download>⬇️ Download Full Portfolio PDF</a></p>
-            </div>
+        <div class="portfolio-grid">
+            
+            <!-- Project 1: Trizen Studios Brand Guidelines -->
+            <article class="project-card">
+                <div class="card-preview">
+                    <!-- Replace with a screenshot or raster export of your Trizen Brand Sheet -->
+                    <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Brand Guidelines">
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag">Brand Identity</span>
+                        <span class="tag">Adobe Illustrator</span>
+                    </div>
+                    <h3>Trizen Studios Brand System</h3>
+                    <p>Comprehensive visual identity manual specifying geometric logo construction, strict clearspace rules, and high-contrast digital/print color spaces (HEX, RGB, CMYK).</p>
+                    <div class="card-meta">
+                        <i class="fas fa-layer-group"></i> Vector Standards & Design Tokens
+                    </div>
+                </div>
+            </article>
 
-            <!-- You can add individual project cards below later if you want -->
-        </section>
+            <!-- Project 2: TS Pro Custom Typeface -->
+            <article class="project-card">
+                <div class="card-preview">
+                    <div style="font-size: 3.5rem; font-weight: 700; color: #00ffff; letter-spacing: -1px;">TS Pro</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag">Typography</span>
+                        <span class="tag">Vector Design</span>
+                    </div>
+                    <h3>TS Pro Typeface Architecture</h3>
+                    <p>A geometric sans-serif typeface engineered across Light, Regular, and Bold weights. Features standardized proportion metrics and distinct square tittles.</p>
+                    <div class="card-meta">
+                        <i class="fas fa-font"></i> Custom Font Development
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 3: Commercial Logo Suite -->
+            <article class="project-card">
+                <div class="card-preview">
+                    <div style="font-size: 2rem; font-weight: 800; color: #ff5533; letter-spacing: 2px;">OCE ELECTRICAL</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag">Logo Suite</span>
+                        <span class="tag">Adobe Illustrator</span>
+                    </div>
+                    <h3>Commercial Mark Suite</h3>
+                    <p>Targeted identity marks including OCE Electrical (interlocking circuit monogram), Ponce De Leon (luxury high-contrast serif), and Vanadium Focus (app icon design).</p>
+                    <div class="card-meta">
+                        <i class="fas fa-shapes"></i> Vector Geometry & Scalability
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 4: OPTI-MUST Editorial Layout -->
+            <article class="project-card">
+                <div class="card-preview">
+                    <div style="font-size: 1.8rem; font-weight: 900; color: #fff; text-transform: uppercase;">OPTI-MUST</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag">Editorial</span>
+                        <span class="tag">Adobe InDesign</span>
+                    </div>
+                    <h3>OPTI-MUST Magazine Cover</h3>
+                    <p>Multi-story magazine cover design built on structured baseline grids, calculated typographical hierarchies, negative space balance, and retail shelf formatting.</p>
+                    <div class="card-meta">
+                        <i class="fas fa-book-open"></i> Print Layout & Grid Architecture
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 5: Brand Application & Product Execution -->
+            <article class="project-card">
+                <div class="card-preview">
+                    <div style="font-size: 3rem; font-family: serif; color: #d4af37;">PL</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag">Packaging</span>
+                        <span class="tag">Adobe Photoshop</span>
+                    </div>
+                    <h3>Ponce De Leon Luxury Packaging</h3>
+                    <p>Visualizing vector brand identities in real-world retail settings, including leather debossing textures, fragrance bottle etchings, and gold-leaf finishings.</p>
+                    <div class="card-meta">
+                        <i class="fas fa-box-open"></i> Mockup Composition & Rendering
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 6: Narrative & Visual Development -->
+            <article class="project-card">
+                <div class="card-preview">
+                    <i class="fas fa-pen-nib" style="font-size: 3.5rem; color: #00ffff;"></i>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag">Concept Art</span>
+                        <span class="tag">Procreate / Illustrator</span>
+                    </div>
+                    <h3>Visual Storytelling & Asset Prep</h3>
+                    <p>Original vector character model turnarounds, keyframe concept storyboards, and panel pacing for multi-platform sequential art series.</p>
+                    <div class="card-meta">
+                        <i class="fas fa-palette"></i> Digital Illustration & Storyboarding
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Clean Download Box for the PDF version -->
+        <div class="pdf-cta-box">
+            <h3>Need a Printable Deck or Offline Copy?</h3>
+            <p style="color: #8a99a8; max-width: 500px;">Download the compiled PDF presentation deck containing technical specifications, brand guideline sheets, and process details.</p>
+            <a href="Portfolio-Thomas-Calabria_compressed.pdf" target="_blank" download class="pdf-btn">
+                <i class="fas fa-file-pdf"></i> Download PDF Portfolio Deck
+            </a>
+        </div>
+
     </main>
 
     <footer>
