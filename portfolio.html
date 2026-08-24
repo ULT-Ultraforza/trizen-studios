@@ -9,47 +9,49 @@
     <script src="https://unpkg.com/lunr/lunr.js"></script>
     <style>
         :root {
-            --bg-dark: #0a0c0e;
-            --card-bg: #121518;
-            --border-color: #1e242b;
+            --bg-canvas: #090b0e;
+            --card-surface: #111519;
+            --border-ui: #1f2732;
             --accent-cyan: #00ffff;
-            --text-main: #f0f4f8;
-            --text-muted: #8c9ba8;
+            --text-heading: #ffffff;
+            --text-body: #a0aec0;
+            --text-muted: #64748b;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-canvas);
+            color: var(--text-body);
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .behance-feed {
-            max-width: 1000px;
+        .portfolio-feed {
+            max-width: 1060px;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 40px 20px 100px;
             display: flex;
             flex-direction: column;
-            gap: 90px;
+            gap: 80px;
         }
 
-        /* Case Study Block */
+        /* Behance Case Study Card */
         .case-study {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            background: var(--card-surface);
+            border: 1px solid var(--border-ui);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
         }
 
         .case-study-header {
-            padding: 32px 36px 24px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 36px 40px 28px;
+            border-bottom: 1px solid var(--border-ui);
         }
 
-        .case-study-tags {
+        .tag-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 12px;
             flex-wrap: wrap;
         }
@@ -58,107 +60,156 @@
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 5px 12px;
+            letter-spacing: 0.6px;
+            padding: 4px 10px;
             border-radius: 4px;
             background: rgba(0, 255, 255, 0.08);
             color: var(--accent-cyan);
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.25);
         }
 
         .case-study-header h2 {
-            font-size: 2rem;
-            margin: 0 0 10px 0;
+            font-size: 2.1rem;
+            color: var(--text-heading);
+            margin: 0 0 12px 0;
             letter-spacing: -0.5px;
-            color: #fff;
         }
 
         .case-study-header p {
             font-size: 1.05rem;
-            color: var(--text-muted);
             line-height: 1.6;
             margin: 0;
-            max-width: 800px;
+            color: var(--text-body);
+            max-width: 820px;
         }
 
-        /* Continuous Behance-style Stream */
-        .project-media-stream {
+        /* Media Stream Containers */
+        .media-stream {
             display: flex;
             flex-direction: column;
-            background: #000;
+            background: #000000;
         }
 
-        .project-media-stream img {
+        .media-stream img {
             width: 100%;
             height: auto;
             display: block;
-            border-bottom: 1px solid #14171a;
+            border-bottom: 1px solid #181d24;
+            object-fit: cover;
         }
 
-        .project-media-stream img:last-child {
+        .media-stream img:last-child {
             border-bottom: none;
         }
 
-        /* Two-Column Detail Grid Inside Stream */
+        /* Multi-Column Grid Blocks */
         .media-grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: #000;
-            border-bottom: 1px solid #14171a;
+            background: #000000;
+            border-bottom: 1px solid #181d24;
         }
 
         .media-grid-2 img {
             border-bottom: none;
-            border-right: 1px solid #14171a;
+            border-right: 1px solid #181d24;
         }
 
         .media-grid-2 img:last-child {
             border-right: none;
         }
 
-        /* Bottom Action / Specs Banner */
+        .media-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: #000000;
+            border-bottom: 1px solid #181d24;
+        }
+
+        .media-grid-3 img {
+            border-bottom: none;
+            border-right: 1px solid #181d24;
+        }
+
+        .media-grid-3 img:last-child {
+            border-right: none;
+        }
+
+        /* Case Study Footer Bar */
         .case-study-footer {
-            padding: 20px 36px;
-            background: #0e1114;
+            padding: 20px 40px;
+            background: #0d1013;
+            border-top: 1px solid var(--border-ui);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.9rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
         }
 
-        .tool-used {
+        .tool-indicator {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-main);
-            font-weight: 500;
+            color: var(--text-heading);
+            font-weight: 600;
+        }
+
+        /* Bottom Download Box */
+        .pdf-action-card {
+            background: linear-gradient(180deg, #111519 0%, #0c0e11 100%);
+            border: 1px solid var(--border-ui);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .pdf-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-cyan);
+            color: #06080a;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .pdf-download-btn:hover {
+            background: #4efef8;
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
-            .behance-feed {
-                padding: 20px 10px 60px;
+            .portfolio-feed {
+                padding: 20px 12px 60px;
                 gap: 50px;
             }
             .case-study-header {
                 padding: 24px 20px;
             }
             .case-study-header h2 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
-            .media-grid-2 {
+            .media-grid-2, .media-grid-3 {
                 grid-template-columns: 1fr;
             }
-            .media-grid-2 img {
+            .media-grid-2 img, .media-grid-3 img {
                 border-right: none;
-                border-bottom: 1px solid #14171a;
+                border-bottom: 1px solid #181d24;
             }
             .case-study-footer {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
                 padding: 16px 20px;
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
             }
         }
     </style>
@@ -166,7 +217,7 @@
 <body>
 
     <header class="brand-header">
-        <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Studios Logo" class="logo">
+        <img src="Trizen Studios Logo.png" alt="Trizen Studios Logo" class="logo">
         <span class="company-name">Trizen Studios</span>
     </header>
 
@@ -195,117 +246,150 @@
     <div class="hero">
         <img src="Trizen-Studios-Background-Screen.webp" alt="Trizen Studios Portfolio" class="hero-image">
         <div class="hero-text">
-            <h1>Selected Design Works</h1>
-            <p>Visual Identities • Typography Systems • Editorial Design • Media Assets</p>
+            <h1>Graphic Design & Visual Systems</h1>
+            <p>Branding • Custom Typography • Editorial Layout • Sequential Illustration</p>
         </div>
     </div>
 
-    <main class="behance-feed">
+    <main class="portfolio-feed">
 
-        <!-- Case Study 1: Trizen Studios Brand Guidelines -->
+        <!-- 1. TRIZEN STUDIOS BRAND SYSTEM -->
         <article class="case-study">
             <div class="case-study-header">
-                <div class="case-study-tags">
+                <div class="tag-group">
                     <span class="tag">Brand Identity</span>
-                    <span class="tag">Guidelines</span>
+                    <span class="tag">Design System</span>
                 </div>
-                <h2>Trizen Studios — Identity System & Standards</h2>
-                <p>Complete corporate identity design specifying exact geometry, clearspace boundaries, color token rules across RGB/CMYK, and official brand assets.</p>
+                <h2>Trizen Studios — Identity Standards & Guidelines</h2>
+                <p>Complete corporate brand identity system specifying geometric logo construction, strict clearspace boundaries, color token definitions across digital and print spectra, custom typography, and official corporate stationery.</p>
             </div>
-            <div class="project-media-stream">
-                <!-- Replace with exported images from your portfolio PDF -->
-                <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Trizen Logo Grid & Construction">
-                <img src="Trizen-Studios-Background-Screen.webp" alt="Trizen Clearspace & Color System">
-            </div>
-            <div class="case-study-footer">
-                <div class="tool-used"><i class="fab fa-adobe"></i> Adobe Illustrator</div>
-                <div>Vector Grid System & Color Calibration</div>
-            </div>
-        </article>
-
-        <!-- Case Study 2: TS Pro Custom Typeface -->
-        <article class="case-study">
-            <div class="case-study-header">
-                <div class="case-study-tags">
-                    <span class="tag">Typography</span>
-                    <span class="tag">Type Design</span>
-                </div>
-                <h2>TS Pro — Geometric Font Family</h2>
-                <p>An original geometric sans-serif typeface designed across Light, Regular, and Bold weights, featuring custom-designed squared tittles across all glyphs.</p>
-            </div>
-            <div class="project-media-stream">
-                <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="TS Pro Specimen Sheet">
-            </div>
-            <div class="case-study-footer">
-                <div class="tool-used"><i class="fas fa-font"></i> Adobe Illustrator / Vector Glyphs</div>
-                <div>Light, Regular & Bold Weights</div>
-            </div>
-        </article>
-
-        <!-- Case Study 3: Commercial Logo Suite -->
-        <article class="case-study">
-            <div class="case-study-header">
-                <div class="case-study-tags">
-                    <span class="tag">Logo Suite</span>
-                    <span class="tag">Brand Marks</span>
-                </div>
-                <h2>Commercial Marks & Corporate Identity</h2>
-                <p>Targeted logo solutions designed for real-world business verticals, including industrial utility (OCE Electrical) and task management software (Vanadium Focus).</p>
-            </div>
-            <div class="project-media-stream">
+            <div class="media-stream">
+                <img src="Color.png" alt="Trizen Studios Color System Rules">
+                <img src="Clearspace.png" alt="Trizen Studios Logo Clearspace and Grid Geometry">
+                <img src="Typography.png" alt="TS Pro Custom Typography System">
                 <div class="media-grid-2">
-                    <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="OCE Electrical Monogram">
-                    <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Vanadium Focus App Icon">
+                    <img src="Business Cards Front.png" alt="Trizen Studios Business Card Front">
+                    <img src="Business Cards Back.png" alt="Trizen Studios Business Card Back">
                 </div>
+                <img src="Thank-You.png" alt="Trizen Studios Brand Mascot & Sign-off">
             </div>
             <div class="case-study-footer">
-                <div class="tool-used"><i class="fab fa-adobe"></i> Adobe Illustrator</div>
-                <div>High-Contrast Commercial Marks</div>
+                <div class="tool-indicator"><i class="fab fa-adobe"></i> Adobe Illustrator</div>
+                <div>Vector Grid Construction • Multi-Weight Font Specimen</div>
             </div>
         </article>
 
-        <!-- Case Study 4: Editorial & Packaging Mockups -->
+        <!-- 2. COMMERCIAL LOGOS & APP ICONS -->
         <article class="case-study">
             <div class="case-study-header">
-                <div class="case-study-tags">
-                    <span class="tag">Editorial</span>
-                    <span class="tag">Packaging</span>
+                <div class="tag-group">
+                    <span class="tag">Identity Suite</span>
+                    <span class="tag">Vector Marks</span>
                 </div>
-                <h2>Ponce De Leon & OPTI-MUST Publication</h2>
-                <p>Commercial application of typography, magazine grid architecture, and luxury packaging finishes across print and digital media.</p>
+                <h2>Commercial Marks & Software Icons</h2>
+                <p>Targeted identity marks designed for commercial utility, corporate scalability, and digital screen legibility. Includes OCE Electrical (circuit loop monogram), Ponce De Leon (luxury high-contrast serif), and Vanadium Focus (layered task app icon).</p>
             </div>
-            <div class="project-media-stream">
-                <img src="Trizen-Studios-Background-Screen.webp" alt="OPTI-MUST Magazine Cover">
+            <div class="media-stream">
                 <div class="media-grid-2">
-                    <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Ponce De Leon Handbag Debossing">
-                    <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Ponce De Leon Perfume Bottle Etching">
+                    <img src="OCE Logo.png" alt="OCE Electrical LC Logo Design">
+                    <img src="PL Logo.png" alt="Ponce De Leon Luxury Monogram">
+                </div>
+                <div class="media-grid-2">
+                    <img src="Vanadium Focus Icon.png" alt="Vanadium Focus Application Icon">
+                    <img src="Trizen Studios Logo.png" alt="Trizen Studios Geometric Icon">
                 </div>
             </div>
             <div class="case-study-footer">
-                <div class="tool-used"><i class="fab fa-adobe"></i> Adobe InDesign & Photoshop</div>
-                <div>Baseline Grids & Photorealistic Mockups</div>
+                <div class="tool-indicator"><i class="fab fa-adobe"></i> Adobe Illustrator</div>
+                <div>High-Contrast Commercial Marks & Geometry</div>
             </div>
         </article>
 
-        <!-- Case Study 5: Visual Development & Narrative Art -->
+        <!-- 3. PACKAGING & EDITORIAL DESIGN -->
         <article class="case-study">
             <div class="case-study-header">
-                <div class="case-study-tags">
+                <div class="tag-group">
+                    <span class="tag">Packaging Mockup</span>
+                    <span class="tag">Editorial Layout</span>
+                </div>
+                <h2>Ponce De Leon Luxury & OPTI-MUST Publication</h2>
+                <p>Commercial application of branding across tangible luxury goods—featuring leather debossing and glass etching—alongside multi-headline baseline grid editorial layouts in InDesign.</p>
+            </div>
+            <div class="media-stream">
+                <img src="Optimust Magazine Cover.png" alt="OPTI-MUST InDesign Magazine Cover Layout">
+                <div class="media-grid-2">
+                    <img src="PL Purse Product Mockup.png" alt="Ponce De Leon Leather Handbag Debossing">
+                    <img src="PL Perfume Product Mockup.png" alt="Ponce De Leon Fragrance Bottle Etching">
+                </div>
+            </div>
+            <div class="case-study-footer">
+                <div class="tool-indicator"><i class="fab fa-adobe"></i> Adobe InDesign & Photoshop</div>
+                <div>Grid Architecture & Photorealistic Product Staging</div>
+            </div>
+        </article>
+
+        <!-- 4. CHARACTER VISUAL DEVELOPMENT (INFINETO) -->
+        <article class="case-study">
+            <div class="case-study-header">
+                <div class="tag-group">
                     <span class="tag">Concept Art</span>
-                    <span class="tag">Illustration</span>
+                    <span class="tag">Vector Illustration</span>
                 </div>
-                <h2>Visual Development & Sequential Storytelling</h2>
-                <p>Original character designs, turnarounds, and comic paneling exploring narrative composition, silhouettes, and color keys for animated media.</p>
+                <h2>Infineto — Comic Character Development</h2>
+                <p>Original vector character design, silhouette balance studies, tactical costume modeling, and multi-scene environmental lighting explorations.</p>
             </div>
-            <div class="project-media-stream">
-                <img src="Trizen-Studios-Background-Screen.webp" alt="Character Concept Sheet">
-                <img src="Trizen-Studios-Logo-Vector-Screen.webp" alt="Comic Panel Narrative Layout">
+            <div class="media-stream">
+                <img src="Infineto Original Character Drawings.png" alt="Infineto Vector Costume Model Turnaround">
+                <div class="media-grid-2">
+                    <img src="Infineto Character Drawings.png" alt="Infineto High Detail Tactical Suit">
+                    <img src="Infineto Horizontal Character Drawings.png" alt="Infineto City Night Scene Staging">
+                </div>
             </div>
             <div class="case-study-footer">
-                <div class="tool-used"><i class="fas fa-palette"></i> Procreate & Adobe Illustrator</div>
-                <div>Character Turnarounds & Sequential Art</div>
+                <div class="tool-indicator"><i class="fab fa-adobe"></i> Adobe Illustrator & Concept Rendering</div>
+                <div>Silhouette Exploration & Character Model Turnaround</div>
             </div>
         </article>
+
+        <!-- 5. SEQUENTIAL ART & STORYBOARDING (AFTERLIFE) -->
+        <article class="case-study">
+            <div class="case-study-header">
+                <div class="tag-group">
+                    <span class="tag">Sequential Art</span>
+                    <span class="tag">Digital Drawing</span>
+                </div>
+                <h2>Afterlife — Animated Series & Comic Panels</h2>
+                <p>Character turnarounds, rough production sketches, color keys, and sequential comic book paneling mapped for multi-scene visual storytelling.</p>
+            </div>
+            <div class="media-stream">
+                <div class="media-grid-2">
+                    <img src="Afterlife Original Sketch Character Drawings.png" alt="Afterlife Model Sheet Sketches">
+                    <img src="Afterlife J Character Drawings.png" alt="Afterlife J Character Vector">
+                </div>
+                <div class="media-grid-2">
+                    <img src="Afterlife MJR Character Drawings.png" alt="Afterlife Character Lineup">
+                    <img src="Afterlife MJR Hawaii Character Drawings.png" alt="Afterlife Environment Setting Scene">
+                </div>
+                <div class="media-grid-3">
+                    <img src="Afterlife Comic Book Character Drawings PG 1.png" alt="Afterlife Comic Page 1">
+                    <img src="Afterlife Comic Book Character Drawings PG 2.png" alt="Afterlife Comic Page 2">
+                    <img src="Afterlife Comic Book Character Drawings PG 3.png" alt="Afterlife Comic Page 3">
+                </div>
+            </div>
+            <div class="case-study-footer">
+                <div class="tool-indicator"><i class="fas fa-pen-nib"></i> Procreate & Adobe Illustrator</div>
+                <div>Visual Development • Sequential Comic Page Layouts</div>
+            </div>
+        </article>
+
+        <!-- PDF DOWNLOAD CTA BOX -->
+        <div class="pdf-action-card">
+            <h3 style="font-size: 1.4rem; color: #fff; margin: 0;">Need a Compiled Deck for Print or Review?</h3>
+            <p style="color: #8c9ba8; max-width: 550px; margin: 0;">Download the complete graphic design and visual identity presentation package in a single compressed document.</p>
+            <a href="Portfolio-Thomas-Calabria_compressed.pdf" target="_blank" download class="pdf-download-btn">
+                <i class="fas fa-file-pdf"></i> Download Full Portfolio PDF
+            </a>
+        </div>
 
     </main>
 
